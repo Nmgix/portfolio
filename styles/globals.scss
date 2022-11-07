@@ -1,0 +1,71 @@
+$color-notification: #0057ff;
+$color-warning: #ff0000;
+$color-interest: #ffc700;
+$color-success: #00ba29;
+
+$colors: (
+  "color-notification": #0057ff,
+  "color-warning": #ff0000,
+  "color-interest": #ffc700,
+  "color-success": #00ba29,
+);
+
+body,
+html,
+* {
+  font-family: "Inter";
+  transition: all 100ms ease-in-out;
+  box-sizing: border-box;
+
+  @each $key, $value in $colors {
+    --#{$key}: #{red($value), green($value), blue($value)};
+  }
+}
+
+body,
+html {
+  background-color: rgba(var(--color-background-default), 1);
+  color: rgba(var(--color-background-alter), 1);
+}
+
+html[data-theme="dark"] {
+  --color-background-default: 0, 0, 0;
+  --color-background-alter: 255, 255, 255;
+}
+
+html[data-theme="light"] {
+  --color-background-default: 255, 255, 255;
+  --color-background-alter: 0, 0, 0;
+}
+
+html[data-theme="hacker"] {
+  --color-background-default: 0, 0, 0;
+  --color-background-alter: 14, 168, 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  position: relative;
+  &::after {
+    content: "link";
+    position: absolute;
+    opacity: 0.35;
+    font-size: 12px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

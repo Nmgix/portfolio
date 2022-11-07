@@ -1,6 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.(ts)x?$/, // Just `tsx?` file only
+      use: [
+        // options.defaultLoaders.babel, I don't think it's necessary to have this loader too
+        {
+          loader: "ts-loader",
+          options: {
+            transpileOnly: true,
+            experimentalWatchApi: true,
+            onlyCompileBundledFiles: true,
+          },
+        },
+      ],
+    });
 
-module.exports = nextConfig
+    return config;
+  },
+};
+
+module.exports = nextConfig;
