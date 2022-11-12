@@ -11,8 +11,8 @@ const nextConfig = {
           loader: "ts-loader",
           options: {
             transpileOnly: true,
-            experimentalWatchApi: true,
-            onlyCompileBundledFiles: true,
+            experimentalWatchApi: false,
+            onlyCompileBundledFiles: false,
           },
         },
       ],
