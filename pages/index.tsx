@@ -5,7 +5,7 @@ import React from "react";
 const Home: NextPage = () => {
   return (
     <div>
-      <Alert type='header' scheme='interest'>
+      <Alert type='Header' scheme='Interest'>
         <>какое-тое уведомление!!!</>
       </Alert>
       <span>Helloooooo</span>
