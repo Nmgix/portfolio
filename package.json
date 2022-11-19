@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm link nmgix-components && next dev",
+    "dev": "npm link nmgix-components && npm link ../uicomponents/node_modules/react && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
