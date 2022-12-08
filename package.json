@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm link nmgix-components && npm link ../uicomponents/node_modules/react && next dev",
+    "dev": "npm link nmgix-components ./../uicomponents/node_modules/react && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "styles": "npx typed-scss-modules styles --watch"
   },
   "dependencies": {
     "next": "^13.0.2",
@@ -15,6 +15,7 @@
     "react-dom": "18.2.0",
     "sass": "^1.56.0",
     "ts-loader": "^9.4.1",
+    "typed-scss-modules": "^7.0.1",
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
