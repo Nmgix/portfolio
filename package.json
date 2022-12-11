@@ -6,7 +6,7 @@
     "dev": "npm link nmgix-components ./../uicomponents/node_modules/react && next dev",
     "build": "next build",
     "start": "next start",
-    "styles": "npx typed-scss-modules styles --watch"
+    "styles": "npx typed-scss-modules . --watch"
   },
   "dependencies": {
     "next": "^13.0.2",
