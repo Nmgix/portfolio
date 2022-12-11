@@ -57,16 +57,20 @@ const Footer: React.FC = () => {
           <div className={styles.formBodyRequisites}>
             <span className={styles.formBodyNestedHeader}>Почта</span>
             <div className={styles.formBodyRequisitesContent}>
-              <Input placeholder='your-favorite@mail.domain' />
-              <Button
-                icon={{ icon: "arrow-right-long" }}
-                border={true}
-                onClick={() => {}}
-                size={"m"}
-                backgroundColor={"background-alter"}
-                color={"background-default"}>
-                Отправить
-              </Button>
+              <div className={styles.formBodyRequisitesContentControls}>
+                <Input placeholder='your-favorite@mail.domain' />
+                <Button
+                  icon={{ icon: "arrow-right-long" }}
+                  border={true}
+                  onClick={() => {}}
+                  size={"m"}
+                  backgroundColor={"background-alter"}
+                  color={"background-default"}
+                  opacity={0.5}>
+                  Отправить
+                </Button>
+              </div>
+              <span>Если не ответил в течении 3дн, отправьте ещё раз</span>
             </div>
           </div>
         </div>

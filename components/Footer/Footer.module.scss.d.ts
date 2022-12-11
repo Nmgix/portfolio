@@ -7,5 +7,6 @@ export const formBodyOptions: string;
 export const formBodyOptionsContent: string;
 export const formBodyRequisites: string;
 export const formBodyRequisitesContent: string;
+export const formBodyRequisitesContentControls: string;
 export const formBodySeparator: string;
 export const formHeader: string;
