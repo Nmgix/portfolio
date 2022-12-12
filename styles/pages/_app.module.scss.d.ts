@@ -1,2 +1,1 @@
-export const appThemeConteiner: string;
-export const next: string;
+export const mainContent: string;
