@@ -1,3 +1,27 @@
 .article {
   width: 100%;
+
+  .main {
+    img {
+      width: 100%;
+    }
+
+    code {
+      background-color: rgba(var(--color-background-alter), 0.1);
+      padding: 1px;
+      border-radius: 5px;
+    }
+
+    blockquote {
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -20px;
+        height: 100%;
+        border-left: 2px solid rgba(var(--color-background-alter), 0.5);
+      }
+    }
+  }
 }

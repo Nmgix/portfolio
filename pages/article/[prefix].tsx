@@ -75,7 +75,7 @@ const Article: React.FC<ArticleData> = ({ meta, content }) => {
             <Image src={image} alt='linked image to article' width={200} height={100} key={image} />
           ))}
         </div>
-        <main>
+        <main className={styles.main}>
           {/* <ReactMarkdown children={content} /> */}
           <Markdown>{content}</Markdown>
         </main>
