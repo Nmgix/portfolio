@@ -3,6 +3,7 @@ import React from "react";
 import styles from "../../styles/pages/article/_article.module.scss";
 import Image from "next/image";
 // import ReactMarkdown from "react-markdown";
+import Markdown from "markdown-to-jsx";
 
 import { getDocBySlug } from "helpers/getDocBySlug";
 
@@ -74,7 +75,10 @@ const Article: React.FC<ArticleData> = ({ meta, content }) => {
             <Image src={image} alt='linked image to article' width={200} height={100} key={image} />
           ))}
         </div>
-        <main>{/* <ReactMarkdown children={content} /> */}</main>
+        <main>
+          {/* <ReactMarkdown children={content} /> */}
+          <Markdown>{content}</Markdown>
+        </main>
       </section>
     </div>
   );
