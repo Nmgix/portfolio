@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "nmgix-components/src";
@@ -7,6 +8,9 @@ import styles from "./Header.module.scss";
 const Header: React.FC = () => {
   return (
     <header className={styles.header}>
+      <Head>
+        <title>NMGIX</title>
+      </Head>
       <div className={styles.hero}>
         <Link href={"/"}>
           <h3>NMGIX</h3>

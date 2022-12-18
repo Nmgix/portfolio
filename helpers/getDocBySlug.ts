@@ -15,3 +15,13 @@ export function getDocBySlug(slug: string) {
     return undefined;
   }
 }
+
+function fileList(dir: string) {
+  return fs.readdirSync(dir).reduce((acc, curr) => {
+    return acc.concat(curr.replace(".md", ""));
+  }, [] as string[]);
+}
+
+export function getAllDocs() {
+  return fileList(doscDirectory);
+}

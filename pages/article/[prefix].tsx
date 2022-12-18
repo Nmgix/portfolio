@@ -1,31 +1,15 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/pages/article/_article.module.scss";
 import Image from "next/image";
 import Markdown from "markdown-to-jsx";
 import { QRCodeSVG } from "qrcode.react";
 
-import { getDocBySlug } from "helpers/getDocBySlug";
+import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import Head from "next/head";
 import { Button } from "nmgix-components/src";
 import { useRouter } from "next/router";
-
-type ArticleMeta = {
-  title: string;
-  authors_favorites: boolean;
-  ttr: number;
-  date: string;
-  linkedImages: string[];
-  tech_stack?: string[];
-  useful_links?: { name: string; url: string }[];
-};
-
-export type ArticleData = {
-  meta: ArticleMeta;
-  content: string;
-};
-
-type ArticlePageData = ArticleData & { host: string };
+import { ArticleMeta, ArticlePageData } from "types/Article";
 
 const Article: React.FC<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -173,21 +157,55 @@ const Article: React.FC<ArticlePageData> = ({ meta, content, host }) => {
 
 export default Article;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-  const { prefix } = query;
+// export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+//   const { prefix } = query;
+//   let md = getDocBySlug(prefix as string);
+//   if (!md) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: true,
+//       },
+//     };
+//   } else {
+//     const pageProps: ArticlePageData = {
+//       meta: md.meta as ArticleMeta,
+//       content: md.content,
+//       host: req.headers.host!,
+//     };
+
+//     return {
+//       props: pageProps,
+//     };
+//   }
+// };
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const articles = getAllDocs();
+  return {
+    paths: articles.map((articleName) => {
+      return {
+        params: {
+          prefix: articleName,
+        },
+      };
+    }),
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = ({ params }) => {
+  const { prefix } = params!;
   let md = getDocBySlug(prefix as string);
   if (!md) {
     return {
-      redirect: {
-        destination: "/",
-        permanent: true,
-      },
+      notFound: true,
     };
   } else {
     const pageProps: ArticlePageData = {
       meta: md.meta as ArticleMeta,
       content: md.content,
-      host: req.headers.host!,
+      host: process.env["HOST"]!,
     };
 
     return {
