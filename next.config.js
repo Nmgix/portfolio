@@ -1,25 +1,18 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: { esmExternals: true },
+const withTM = require("next-transpile-modules")(["nmgix-components"]);
+
+const nextConfig = withTM({
   reactStrictMode: true,
   webpack: (config, options) => {
+    config.resolve.extensions.push(".ts", ".tsx");
     config.module.rules.push({
-      test: /\.(ts)x?$/, // Just `tsx?` file only
-      use: [
-        // options.defaultLoaders.babel, I don't think it's necessary to have this loader too
-        {
-          loader: "ts-loader",
-          options: {
-            transpileOnly: true,
-            experimentalWatchApi: false,
-            onlyCompileBundledFiles: false,
-          },
-        },
-      ],
+      test: /\\.+(ts|tsx)$/,
+      include: [options.dir],
+      exclude: /node_modules/,
+      use: [options.defaultLoaders.babel, { loader: "ts-loader", options: { transpileOnly: true } }],
     });
-
     return config;
   },
-};
+});
 
 module.exports = nextConfig;

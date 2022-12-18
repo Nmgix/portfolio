@@ -4,6 +4,15 @@
   position: relative;
   flex: 0 1 auto;
 
+  a {
+    text-decoration: none;
+    color: rgba(var(--color-background-alter, 1));
+
+    &::after {
+      display: none;
+    }
+  }
+
   .hero {
     h3 {
       text-align: center;

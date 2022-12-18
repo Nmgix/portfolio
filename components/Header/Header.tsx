@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "nmgix-components/src";
 import React from "react";
 import styles from "./Header.module.scss";
@@ -7,7 +8,9 @@ const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.hero}>
-        <h3>NMGIX</h3>
+        <Link href={"/"}>
+          <h3>NMGIX</h3>
+        </Link>
         <div className={styles.controls}>
           <span>с 2020г</span>
           <Button border={false} onClick={() => {}} size='s'>
