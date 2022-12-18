@@ -48,7 +48,7 @@
           grid-template-columns: 1fr 1fr;
           height: 100%;
 
-          @media screen and (max-width: breakpoints.$breakpoint-phone) {
+          @media screen and (max-width: breakpoints.$breakpoint-max-phone) {
             grid-template-columns: 1fr;
           }
 
@@ -125,7 +125,7 @@
               }
             }
 
-            @media screen and (max-width: breakpoints.$breakpoint-phone) {
+            @media screen and (max-width: breakpoints.$breakpoint-max-phone) {
               flex-direction: column;
 
               & > * {

@@ -2,7 +2,7 @@
 const withTM = require("next-transpile-modules")(["nmgix-components"]);
 
 const nextConfig = withTM({
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config, options) => {
     config.resolve.extensions.push(".ts", ".tsx");
     config.module.rules.push({

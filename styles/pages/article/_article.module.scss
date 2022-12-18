@@ -1,26 +1,208 @@
+@use "node_modules/nmgix-components/src/breakpoints.module.scss";
+
 .article {
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
+
+  @media screen and (max-width: breakpoints.$breakpoint-max-phone) {
+    width: 100%;
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    h1 {
+      white-space: nowrap;
+      word-break: keep-all;
+
+      @media screen and (max-width: breakpoints.$breakpoint-min-tablet) {
+        font-size: 24px;
+      }
+
+      @media screen and (max-width: breakpoints.$breakpoint-xmax-phone) {
+        white-space: normal;
+      }
+    }
+
+    .articleStats {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+
+      flex-wrap: wrap;
+      row-gap: 5px;
+      column-gap: 5px;
+
+      & > span {
+        opacity: 0.3;
+        font-size: 14px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+      }
+
+      .favourite {
+        img {
+          margin-right: 5px;
+        }
+      }
+
+      &Secondary {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        column-gap: 10px;
+
+        .stat {
+          max-width: 50%;
+
+          &Header {
+            opacity: 0.3;
+            font-weight: 600;
+            font-size: 13px;
+          }
+
+          ul {
+            display: flex;
+            flex-direction: row;
+            column-gap: 5px;
+
+            li {
+              font-weight: 600;
+              font-size: 16px;
+
+              span {
+                opacity: 0.5;
+              }
+
+              a {
+                opacity: 0.5;
+                text-decoration: none;
+
+                &:hover {
+                  opacity: 0.7;
+                }
+
+                &::after {
+                  background-color: rgba(var(--color-background-alter), 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .linkedImages {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+
+    img {
+      position: initial !important;
+      border-radius: 10px;
+      object-fit: cover;
+
+      &:nth-child(1) {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(4) {
+        display: inline-block;
+        width: 28% !important;
+        height: 80px !important;
+        margin-top: 20px;
+        margin-right: 14px;
+
+        @media screen and (max-width: breakpoints.$breakpoint-mid-tablet) {
+          width: 25% !important;
+        }
+      }
+    }
+
+    span {
+      display: inline-block;
+      margin-top: 50px;
+      vertical-align: top;
+      font-weight: 600;
+      font-size: 16px;
+
+      button {
+        padding: 0;
+      }
+
+      &:nth-child(1) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 50px;
+      }
+    }
+  }
 
   .main {
-    img {
-      width: 100%;
+    div {
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      code {
+        background-color: rgba(var(--color-background-alter), 0.1);
+        padding: 1px;
+        border-radius: 5px;
+      }
+
+      blockquote {
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -20px;
+          height: 100%;
+          border-left: 2px solid rgba(var(--color-background-alter), 0.5);
+        }
+      }
+    }
+  }
+
+  .qrCode {
+    width: 100%;
+    background-color: rgba(var(--color-background-alter), 1);
+    color: rgba(var(--color-background-default), 1);
+    border-radius: 10px;
+    padding: 20px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      max-width: 65%;
+
+      p {
+        margin: 8px 0;
+        font-size: 14px;
+        font-weight: 400;
+      }
     }
 
-    code {
-      background-color: rgba(var(--color-background-alter), 0.1);
-      padding: 1px;
-      border-radius: 5px;
-    }
+    .socials {
+      display: flex;
+      margin-top: 5px;
+      column-gap: 8px;
 
-    blockquote {
-      position: relative;
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -20px;
-        height: 100%;
-        border-left: 2px solid rgba(var(--color-background-alter), 0.5);
+      button {
+        padding: 0;
       }
     }
   }

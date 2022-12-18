@@ -3,7 +3,15 @@
     authors_favorites: true
     ttr: 5
     date: 15.03.22
-    linkedImages: ["/images/articles/nmgix-components/components-preview1.png"]
+    linkedImages: ["/images/articles/nmgix-components/components-preview1.png", "/images/articles/nmgix-components/components-preview2.png", "/images/articles/nmgix-components/figma.png", "/images/articles/nmgix-components/git-preview.png",
+    "/images/articles/nmgix-components/components-preview1.png", "/images/articles/nmgix-components/components-preview2.png", "/images/articles/nmgix-components/figma.png", "/images/articles/nmgix-components/git-preview.png"
+    ]
+    tech_stack: ['Typescript', 'React']
+    useful_links: [
+        {
+            name: 'Гитхаб', url: 'https://github.com/nmgix'
+        }
+    ]
 ---
 
 <b>Осознание в необходимости своих собственных компонентов появилось после того, как я в 5-й раз писал с нуля компоненты для очередного проекта</b>
