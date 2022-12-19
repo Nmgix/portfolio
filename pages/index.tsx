@@ -1,7 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import { Alert, CellGroup } from "nmgix-components/src";
 import React from "react";
-import { dataExample } from "nmgix-components/src/components/CellsComponentsGroup/example-data/ExampleData";
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import { NewsletterDataTypes } from "nmgix-components/src/components/CellsComponentsGroup/types";
 import { ArticleMeta } from "types/Article";
@@ -33,10 +32,11 @@ export const getStaticProps: GetStaticProps = () => {
       time: data.ttr,
       title: data.title,
       type: "article",
-      url: name,
+      url: "/article/" + name,
       techStack: data.tech_stack ?? [],
     };
   });
+
   return {
     props: {
       articles: articleData,

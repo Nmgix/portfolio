@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/pages/article/_article.module.scss";
 import Image from "next/image";
@@ -11,11 +11,11 @@ import { Button } from "nmgix-components/src";
 import { useRouter } from "next/router";
 import { ArticleMeta, ArticlePageData } from "types/Article";
 
-const Article: React.FC<ArticlePageData> = ({ meta, content, host }) => {
+const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
 
   const goToMain = () => {
-    router.push("/");
+    return router.push("/", undefined, { shallow: true });
   };
 
   const [qrLink, setQRLink] = useState<string | undefined>(undefined);
@@ -26,7 +26,9 @@ const Article: React.FC<ArticlePageData> = ({ meta, content, host }) => {
     }
   }, []);
 
-  return (
+  return router.isFallback ? (
+    <div>Эта статья ещё не написана</div>
+  ) : (
     <>
       <Button border={false} onClick={goToMain} size='m'>
         Назад
@@ -156,29 +158,6 @@ const Article: React.FC<ArticlePageData> = ({ meta, content, host }) => {
 };
 
 export default Article;
-
-// export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-//   const { prefix } = query;
-//   let md = getDocBySlug(prefix as string);
-//   if (!md) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: true,
-//       },
-//     };
-//   } else {
-//     const pageProps: ArticlePageData = {
-//       meta: md.meta as ArticleMeta,
-//       content: md.content,
-//       host: req.headers.host!,
-//     };
-
-//     return {
-//       props: pageProps,
-//     };
-//   }
-// };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const articles = getAllDocs();
