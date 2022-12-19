@@ -10,6 +10,7 @@ import Head from "next/head";
 import { Button } from "nmgix-components/src";
 import { useRouter } from "next/router";
 import { ArticleMeta, ArticlePageData } from "types/Article";
+import { Icon } from "components/Icon/Icon";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -26,12 +27,14 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
     }
   }, []);
 
-  return router.isFallback ? (
-    <div>Эта статья ещё не написана</div>
-  ) : (
+  // router.isFallback ? (
+  //   <div>Эта статья ещё не написана</div>
+  // ) : (
+  return (
     <>
-      <Button border={false} onClick={goToMain} size='m'>
-        Назад
+      <Button border={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
+        <Icon icon='arrow-left' width={18} height={15} />
+        <span>Назад</span>
       </Button>
       <div className={styles.article}>
         <Head>
@@ -42,13 +45,14 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
           <div className={styles.articleStats}>
             {meta.authors_favorites ? (
               <span className={styles.favourite}>
-                <Image
+                {/* <Image
                   src={"/icons/star.svg"}
                   alt='star logo, means article is favourite'
                   width={13}
                   height={13}
                   draggable={false}
-                />
+                /> */}
+                <Icon icon='star' width={13} height={13} />
                 Избранное у автора
               </span>
             ) : (
@@ -155,6 +159,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
       </div>
     </>
   );
+  // );
 };
 
 export default Article;
@@ -169,6 +174,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         },
       };
     }),
+    // fallback: true,
     fallback: false,
   };
 };

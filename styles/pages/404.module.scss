@@ -1,0 +1,41 @@
+.page404 {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: "404";
+    font-size: 96px;
+    font-weight: 700;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 50vh;
+  width: 20vw;
+  text-align: center;
+  margin: 0 auto;
+
+  h3 {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  span {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  button {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}

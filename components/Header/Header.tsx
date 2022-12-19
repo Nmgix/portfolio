@@ -1,3 +1,4 @@
+import { Icon } from "components/Icon/Icon";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +40,8 @@ const Header: React.FC = () => {
       </div>
       <div className={styles.settings}>
         <Button border={false} onClick={() => {}} size='s'>
-          <Image src={"/icons/gear.svg"} width={30} height={30} draggable={false} alt='Settings icon' />
+          {/* <Image src={"/icons/gear.svg"} width={30} height={30} draggable={false} alt='Settings icon' /> */}
+          <Icon icon='gear' width={30} height={30} />
         </Button>
       </div>
     </header>

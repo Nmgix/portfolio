@@ -2,6 +2,7 @@ import styles from "./Footer.module.scss";
 import React from "react";
 import Image from "next/image";
 import { Button, Input } from "nmgix-components/src";
+import { Icon } from "components/Icon/Icon";
 
 const Footer: React.FC = () => {
   return (
@@ -67,7 +68,8 @@ const Footer: React.FC = () => {
                   backgroundColor={"background-alter"}
                   color={"background-default"}
                   opacity={0.5}>
-                  Отправить
+                  <span>Отправить</span>
+                  <Icon icon='arrow-right' width={18} height={15} />
                 </Button>
               </div>
               <span>Если не ответил в течении 3дн, отправьте ещё раз</span>

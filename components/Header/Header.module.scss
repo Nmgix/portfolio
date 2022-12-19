@@ -39,5 +39,11 @@
     position: absolute;
     top: 0;
     right: 0;
+
+    button {
+      i {
+        background-color: rgba(var(--color-background-alter, 1));
+      }
+    }
   }
 }

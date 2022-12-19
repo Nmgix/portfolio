@@ -1,4 +1,5 @@
 ---
+    id: 0
     title: Свои собственные компоненты
     authors_favorites: true
     ttr: 5

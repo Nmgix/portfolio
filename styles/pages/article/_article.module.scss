@@ -1,5 +1,15 @@
 @use "node_modules/nmgix-components/src/breakpoints.module.scss";
 
+.returnButton {
+  span {
+    margin-left: 5px;
+  }
+
+  i {
+    background-color: rgba(var(--color-background-alter), 1);
+  }
+}
+
 .article {
   width: 80%;
   margin: 0 auto;
@@ -47,7 +57,8 @@
       }
 
       .favourite {
-        img {
+        i {
+          background-color: rgba(var(--color-background-alter), 1);
           margin-right: 5px;
         }
       }
@@ -59,8 +70,6 @@
         column-gap: 10px;
 
         .stat {
-          max-width: 50%;
-
           &Header {
             opacity: 0.3;
             font-weight: 600;
@@ -70,7 +79,7 @@
           ul {
             display: flex;
             flex-direction: row;
-            column-gap: 5px;
+            column-gap: 15px;
 
             li {
               font-weight: 600;
@@ -149,6 +158,8 @@
   }
 
   .main {
+    margin-bottom: 15px;
+
     div {
       img {
         width: 100%;

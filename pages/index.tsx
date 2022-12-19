@@ -1,10 +1,10 @@
 import type { GetStaticProps, NextPage } from "next";
-import { Alert, CellGroup } from "nmgix-components/src";
+import { Alert } from "nmgix-components/src";
 import React from "react";
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
-import { NewsletterDataTypes } from "nmgix-components/src/components/CellsComponentsGroup/types";
 import { ArticleMeta } from "types/Article";
-import { ArticleCellData } from "nmgix-components/src/components/CellsComponentsGroup/types";
+import { ArticleCellData, NewsletterDataTypes } from "components/CellsComponentsGroup/types";
+import { CellGroup } from "components/CellsComponentsGroup";
 
 const Home: NextPage<{ articles: NewsletterDataTypes[] }> = ({ articles }) => {
   return <CellGroup data={articles} />;
@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = () => {
 
     return {
       date: data.date,
-      id: -1,
+      id: data.id,
       sizes: [
         { height: 2, width: 2 },
         { height: 1, width: 2 },
@@ -34,6 +34,8 @@ export const getStaticProps: GetStaticProps = () => {
       type: "article",
       url: "/article/" + name,
       techStack: data.tech_stack ?? [],
+      image: meta.data.linkedImages[0],
+      description: data.description ?? "",
     };
   });
 
