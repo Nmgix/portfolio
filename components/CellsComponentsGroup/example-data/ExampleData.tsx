@@ -19,7 +19,9 @@ export const dataExample: NewsletterDataTypes[] = [
       },
     ],
     techStack: ["React", "Typescript", "Local Storage"],
-    time: 5,
+    ttr: 5,
+    authors_favorites: true,
+    linkedImages: [],
     // image: "test-mindbox-preview.jpeg",
   },
   {
@@ -45,7 +47,9 @@ export const dataExample: NewsletterDataTypes[] = [
       },
     ],
     techStack: ["React", "Typescript"],
-    time: 5,
+    ttr: 5,
+    authors_favorites: false,
+    linkedImages: [],
     // image: "test-funbox-preview.jpeg",
   },
   {
@@ -74,7 +78,9 @@ export const dataExample: NewsletterDataTypes[] = [
       },
     ],
     techStack: ["React", "Typescript"],
-    time: 5,
+    ttr: 5,
+    authors_favorites: false,
+    linkedImages: [],
     // image: "iga-bank-preview.jpeg",
   },
   {

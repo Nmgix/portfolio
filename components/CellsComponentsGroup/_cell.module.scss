@@ -1,3 +1,5 @@
+@use "nmgix-components/src/breakpoints.module.scss";
+
 .cell {
   &Group {
     margin: 0;
@@ -9,7 +11,11 @@
     column-gap: 1em;
     row-gap: 1em;
     grid-auto-rows: 10em;
-    // grid-auto-columns: 10em;
+    grid-auto-columns: 23%;
+
+    @media screen and (max-width: breakpoints.$breakpoint-mid-tablet) {
+      grid-auto-columns: 50%;
+    }
   }
 
   border-radius: 10px;

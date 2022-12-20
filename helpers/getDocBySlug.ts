@@ -12,7 +12,6 @@ export function getDocBySlug(slug: string) {
     const { data, content } = matter(fileContents);
     return { slug: realSlug, meta: data, content };
   } catch (error) {
-    console.log(error);
     return undefined;
   }
 }

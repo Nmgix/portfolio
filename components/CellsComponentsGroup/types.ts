@@ -4,28 +4,31 @@ export type Size = {
 };
 
 export interface DefaultData {
-  type: string;
   id: number;
+  type: string;
   title: string;
   sizes: Size[];
-  image?: string;
-  description?: string | string[] | React.ReactNode | React.ReactNode[];
 }
 
 // может быть будет генератор ссылок по типу информации, хз
 export interface ArticleCellData extends DefaultData {
   type: "article";
-  time: number; // to read, in minutes
+  authors_favorites: boolean;
+  ttr: number; // to read, in minutes
   date: string;
   url: string;
-  techStack: string[];
+  description?: string;
+  subtitle?: string;
+  image?: string;
+  linkedImages: string[];
+  techStack?: string[];
+  useful_links?: { name: string; url: string }[];
   // залить фон цветом или градиентом
   backgroundColor?: string[];
 }
 
 export interface CoursesCellData extends DefaultData {
   type: "courses";
-
   //   пока что неиспользуемая переменная, будет отвечать за окраску окантовки курсов и общего блока -> будет необходимо
   // немного переделать метод рендера чтобы родитель окрашивался (вряд ли полностью переделывать рендер, скорее какой-то аля switch case)
   borderColor: string;

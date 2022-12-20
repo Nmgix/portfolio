@@ -11,6 +11,8 @@ type Pointer = {
   y: number;
 };
 
+const mobileWidthThreshold = 700;
+
 /**
  * Cell Group Component.
  * That component is a grid for cell components that are randomly placed.
@@ -21,15 +23,13 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[] }> = ({ data }) =
   const { width, height } = useWindowDimentions();
   const [{ map, cells }, setCells] = useState<{ map: string[][]; cells: NewsletterDataTypes[] }>(() => createMap(data));
   const [domLoaded, setDomLoaded] = useState(false);
-  const [mobile, setMobile] = useState<boolean>(width < 800);
+  const [mobile, setMobile] = useState<boolean>(width < mobileWidthThreshold);
   useEffect(() => {
-    setMobile((wasMobile) => {
-      if (wasMobile === true && width > 800) {
+    setMobile(() => {
+      if (width > mobileWidthThreshold) {
         return false;
-      } else if (wasMobile === false && width < 801) {
-        return true;
       } else {
-        return wasMobile;
+        return true;
       }
     });
   }, [width]);
@@ -38,7 +38,7 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[] }> = ({ data }) =
   }, [mobile]);
 
   function createMap(data: NewsletterDataTypes[]): any {
-    const rowWidth = width < 800 ? 2 : 4;
+    const rowWidth = width < mobileWidthThreshold + 1 ? 2 : 4;
 
     function findEmpty(map: string[][], startFrom: number = 0) {
       for (let i = startFrom; i < map.length; i++) {

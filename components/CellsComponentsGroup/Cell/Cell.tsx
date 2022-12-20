@@ -51,7 +51,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             }}>
             {cell.courses.map((course) => (
               <li key={course.title} style={{ border: `4px solid ${cell.borderColor}` }}>
-                <a href={course.link} referrerPolicy='no-referrer'>
+                <a href={course.link} referrerPolicy='no-referrer' target={"_blank"}>
                   <div className={clsx(styles.courseMain)}>
                     <p>{course.title}</p>
                     <p>{course.teacher}</p>
@@ -100,16 +100,20 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                 </Link>
               </h3>
               <div className={clsx(styles.articleTime)}>
-                <span>{cell.time} мин на чтение</span>
+                <span>{cell.ttr} мин на чтение</span>
                 <span>{cell.date}</span>
               </div>
-              <ul className={clsx(styles.articleTechstack)}>
-                {cell.techStack.map((technology) => (
-                  <li key={technology}>
-                    <b>{technology}</b>
-                  </li>
-                ))}
-              </ul>
+              {cell.techStack ? (
+                <ul className={clsx(styles.articleTechstack)}>
+                  {cell.techStack.map((technology) => (
+                    <li key={technology}>
+                      <b>{technology}</b>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         );
@@ -139,16 +143,20 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             </h3>
             <div className={clsx(styles.cellTypeArticleMain)}>
               <div className={clsx(styles.articleTime)}>
-                <span>{cell.time} мин на чтение</span>
+                <span>{cell.ttr} мин на чтение</span>
                 <span>{cell.date}</span>
               </div>
-              <ul className={clsx(styles.articleTechstack)}>
-                {cell.techStack.map((technology) => (
-                  <li key={technology}>
-                    <b>{technology}</b>
-                  </li>
-                ))}
-              </ul>
+              {cell.techStack ? (
+                <ul className={clsx(styles.articleTechstack)}>
+                  {cell.techStack.map((technology) => (
+                    <li key={technology}>
+                      <b>{technology}</b>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <></>
+              )}
               {cell.description ? (
                 <div style={{ position: "relative" }}>
                   <p
@@ -196,7 +204,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
  */
 export const Cell: React.FC<NewsletterDataTypes> = memo(
   (cellData) => {
-    const { id, sizes } = cellData;
+    const { id } = cellData;
 
     return (
       <li

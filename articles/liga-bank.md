@@ -4,6 +4,7 @@
     authors_favorites: true
     ttr: 5
     date: 19.12.22
+    type: article
     linkedImages: ["/images/articles/liga-bank/liga-bank-preview.png"]
     tech_stack: ['Typescript', 'React']
     useful_links: [
