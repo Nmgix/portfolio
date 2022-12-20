@@ -123,30 +123,31 @@
       height: 100%;
 
       a {
+        &::after {
+          display: none;
+        }
+
         text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         height: 100%;
 
         h3 {
           text-align: center;
           color: #ffffff60;
           margin: 0;
+          margin-bottom: 10px;
+
+          @media screen and (max-width: breakpoints.$breakpoint-mid-tablet) {
+            margin-bottom: 0px;
+          }
         }
 
         & > div {
           display: flex;
           justify-content: space-between;
+          margin-bottom: 27px;
 
-          img {
-            z-index: 0;
-            position: absolute;
-            height: 50%;
-            top: 60%;
-            transform: translateY(-50%);
-
-            object-fit: contain;
+          @media screen and (max-width: breakpoints.$breakpoint-mid-tablet) {
+            margin-bottom: 40px;
           }
 
           span {
@@ -156,15 +157,15 @@
           }
         }
 
-        & > * {
-          flex: 0;
-        }
+        // & > * {
+        //   flex: 0;
+        // }
 
-        & > div:last-child {
-          flex: 1;
-          display: flex;
-          align-items: flex-end;
-        }
+        // & > div:last-child {
+        //   flex: 1;
+        //   display: flex;
+        //   align-items: flex-end;
+        // }
       }
     }
 

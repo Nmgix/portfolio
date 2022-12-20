@@ -18,27 +18,6 @@ export const getStaticProps: GetStaticProps = () => {
       data: meta,
     };
   }) as { name: string; data: NewsletterDataTypes }[];
-  // const articleData: ArticleCellData[] = metas.filter(meta => meta.data.type === 'article').map((meta) => {
-  //   const { name, data } = meta;
-
-  //     return {
-  //       id: data.id,
-  //       sizes: [
-  //         { height: 2, width: 2 },
-  //         { height: 1, width: 2 },
-  //       ],
-  //       title: data.title,
-  //       type: "article",
-  //       date: data.date,
-  //       time: data.ttr,
-  //       url: "/article/" + name,
-  //       authors_favorites: data,
-  //       techStack: data.techStack ?? [],
-  //       image: data.linkedImages[0],
-  //       description: data.description ?? "",
-  //     };
-
-  // });
   const articleData: NewsletterDataTypes[] = metas.map((meta) => {
     const { name, data } = meta;
 
@@ -57,6 +36,12 @@ export const getStaticProps: GetStaticProps = () => {
       } as Partial<DefaultData>);
     } else if (data.type === "git") {
       return Object.assign({}, data, {
+        gitData: {
+          issuesPersentage: 0,
+          commitsPerYear: 408,
+          codeReviewPersentage: 0,
+          pullRequestsPersentage: 4,
+        },
         sizes: [{ width: 2, height: 1 }],
       } as Partial<DefaultData>);
     } else if (data.type === "bio") {
@@ -72,6 +57,7 @@ export const getStaticProps: GetStaticProps = () => {
     props: {
       articles: articleData,
     },
+    revalidate: 3600,
   };
 };
 

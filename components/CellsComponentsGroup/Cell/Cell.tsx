@@ -5,6 +5,11 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Image } from "nmgix-components/src";
 
+import dynamic from "next/dynamic";
+const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
+  ssr: false,
+});
+
 const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
   const { width, height } = cell.sizes[0];
 
@@ -22,8 +27,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                 <b>{cell.gitData.codeReviewPersentage}%</b> код-ревью в год
               </span>
             </div>
-            {/* cell.gitData.commitsImg */}
-            <Image src={cell.gitData.commitsImg} label={"github-stats"} showLabel={false} />
+            <ReactGitHubCalendar userName={cell.nick} responsive global_stats={false} tooltips={false} />
             <div>
               <span>
                 <b>{cell.gitData.issuesPersentage}%</b> тикетов

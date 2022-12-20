@@ -48,6 +48,7 @@ export interface GitCellData extends DefaultData {
   type: "git";
   borderColor: string;
   url: string;
+  nick: string;
   gitData: {
     commitsPerYear: number;
     commitsImg: string;
