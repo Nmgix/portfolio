@@ -62,7 +62,7 @@ export interface GitCellData extends DefaultData {
 export interface BioCellData extends DefaultData {
   type: "bio";
   // пока что временно ReactNode, а не ReactNode[]
-  description: React.ReactNode;
+  description: string;
 }
 
 export type NewsletterDataTypes = ArticleCellData | CoursesCellData | BioCellData | GitCellData;

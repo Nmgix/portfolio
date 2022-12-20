@@ -3,7 +3,7 @@ import { NewsletterDataTypes } from "../types";
 import styles from "../_cell.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
-import { Image } from "nmgix-components/src";
+import Markdown from "markdown-to-jsx";
 
 import dynamic from "next/dynamic";
 const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
@@ -41,7 +41,12 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
       );
     }
     case "bio": {
-      return <div className={clsx(styles.cellTypeBio)}>{cell.description}</div>;
+      return (
+        <div className={clsx(styles.cellTypeBio)}>
+          <h3>{cell.title}</h3>
+          <Markdown>{cell.description}</Markdown>
+        </div>
+      );
     }
     case "courses": {
       return (

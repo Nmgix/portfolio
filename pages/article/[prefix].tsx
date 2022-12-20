@@ -9,8 +9,9 @@ import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import Head from "next/head";
 import { Button } from "nmgix-components/src";
 import { useRouter } from "next/router";
-import { ArticleMeta, ArticlePageData } from "types/Article";
+import { ArticlePageData } from "types/Article";
 import { Icon } from "components/Icon/Icon";
+import { ArticleCellData } from "components/CellsComponentsGroup/types";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -61,14 +62,14 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
             <span>{meta.ttr} мин. на чтение</span>
             <span>{meta.date.replaceAll(".", "/")}</span>
           </div>
-          {meta.tech_stack || meta.useful_links ? (
+          {meta.techStack || meta.useful_links ? (
             <div className={styles.articleStatsSecondary}>
               <div className={styles.stat}>
-                {meta.tech_stack ? (
+                {meta.techStack ? (
                   <>
                     <span className={styles.statHeader}>Стек технологий</span>
                     <ul>
-                      {meta.tech_stack.map((tech) => (
+                      {meta.techStack.map((tech) => (
                         <li key={tech}>
                           <span>{tech}</span>
                         </li>
@@ -188,7 +189,7 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
     };
   } else {
     const pageProps: ArticlePageData = {
-      meta: md.meta as ArticleMeta,
+      meta: md.meta as ArticleCellData,
       content: md.content,
       host: process.env["HOST"]!,
     };

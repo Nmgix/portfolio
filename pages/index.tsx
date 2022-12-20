@@ -2,7 +2,13 @@ import type { GetStaticProps, NextPage } from "next";
 import { Alert } from "nmgix-components/src";
 import React from "react";
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
-import { ArticleCellData, DefaultData, NewsletterDataTypes } from "components/CellsComponentsGroup/types";
+import {
+  ArticleCellData,
+  BioCellData,
+  CoursesCellData,
+  GitCellData,
+  NewsletterDataTypes,
+} from "components/CellsComponentsGroup/types";
 import { CellGroup } from "components/CellsComponentsGroup";
 
 const Home: NextPage<{ articles: NewsletterDataTypes[] }> = ({ articles }) => {
@@ -11,31 +17,32 @@ const Home: NextPage<{ articles: NewsletterDataTypes[] }> = ({ articles }) => {
 
 export const getStaticProps: GetStaticProps = () => {
   const articles = getAllDocs();
-  const metas = articles.map((articleName) => {
-    const { meta } = getDocBySlug(articleName)!;
+  const articlesData = articles.map((articleName) => {
+    const { meta, content } = getDocBySlug(articleName)!;
     return {
       name: articleName,
-      data: meta,
+      meta: meta,
+      content: content,
     };
-  }) as { name: string; data: NewsletterDataTypes }[];
-  const articleData: NewsletterDataTypes[] = metas.map((meta) => {
-    const { name, data } = meta;
+  }) as { name: string; meta: NewsletterDataTypes; content: string }[];
+  const articleData: NewsletterDataTypes[] = articlesData.map((article) => {
+    const { name, meta, content } = article;
 
-    if (data.type === "article") {
-      return Object.assign({}, data, {
-        image: data.linkedImages[0],
+    if (meta.type === "article") {
+      return Object.assign({}, meta, {
+        image: meta.linkedImages[0],
         url: "/article/" + name,
         sizes: [
           { width: 2, height: 1 },
           { width: 2, height: 2 },
         ],
       } as Partial<ArticleCellData>);
-    } else if (data.type === "courses") {
-      return Object.assign({}, data, {
+    } else if (meta.type === "courses") {
+      return Object.assign({}, meta, {
         sizes: [{ width: 1, height: 2 }],
-      } as Partial<DefaultData>);
-    } else if (data.type === "git") {
-      return Object.assign({}, data, {
+      } as Partial<CoursesCellData>);
+    } else if (meta.type === "git") {
+      return Object.assign({}, meta, {
         gitData: {
           issuesPersentage: 0,
           commitsPerYear: 408,
@@ -43,13 +50,14 @@ export const getStaticProps: GetStaticProps = () => {
           pullRequestsPersentage: 4,
         },
         sizes: [{ width: 2, height: 1 }],
-      } as Partial<DefaultData>);
-    } else if (data.type === "bio") {
-      return Object.assign({}, data, {
+      } as Partial<GitCellData>);
+    } else if (meta.type === "bio") {
+      return Object.assign({}, meta, {
         sizes: [{ width: 2, height: 3 }],
-      } as Partial<DefaultData>);
+        description: content,
+      } as Partial<BioCellData>);
     } else {
-      return data;
+      return meta;
     }
   });
 

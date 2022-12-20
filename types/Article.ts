@@ -1,7 +1,7 @@
-import { NewsletterDataTypes } from "components/CellsComponentsGroup/types";
+import { ArticleCellData, NewsletterDataTypes } from "components/CellsComponentsGroup/types";
 
 export type ArticleData = {
-  meta: NewsletterDataTypes;
+  meta: ArticleCellData;
   content: string;
 };
 
