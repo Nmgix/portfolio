@@ -6,6 +6,7 @@ import Link from "next/link";
 import Markdown from "markdown-to-jsx";
 
 import dynamic from "next/dynamic";
+import { randomIntFromInterval } from "helpers/randomNumber";
 const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
   ssr: false,
 });
@@ -91,9 +92,9 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             style={{
               background: cell.backgroundColor
                 ? cell.backgroundColor.length > 1
-                  ? `linear-gradient(180deg, ${cell.backgroundColor.join(",")})`
+                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${cell.backgroundColor.join(",")})`
                   : cell.backgroundColor[0]
-                : "",
+                : undefined,
             }}>
             <div className={clsx(styles.imageWrapper)}>
               {cell.image ? (
@@ -134,9 +135,9 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             style={{
               background: cell.backgroundColor
                 ? cell.backgroundColor.length > 1
-                  ? `linear-gradient(180deg, ${cell.backgroundColor.join(",")})`
+                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${cell.backgroundColor.join(",")})`
                   : cell.backgroundColor[0]
-                : "",
+                : undefined,
             }}>
             <div className={clsx(styles.imageWrapper)}>
               {cell.image ? (
@@ -182,11 +183,9 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                         position: "absolute",
                         width: "100%",
                         height: "50%",
-                        background: `linear-gradient(180deg, #00000000, ${
-                          cell.backgroundColor
-                            ? cell.backgroundColor[cell.backgroundColor.length - 1]
-                            : "rgba(var(--color-background-alter), 1)"
-                        })`,
+                        background: cell.backgroundColor
+                          ? undefined
+                          : `linear-gradient(180deg, #00000000, rgba(var(--color-background-alter), 1))`,
                         bottom: 0,
                       }}
                     />

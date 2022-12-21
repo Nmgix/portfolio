@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { ArticlePageData } from "types/Article";
 import { Icon } from "components/Icon/Icon";
 import { ArticleCellData } from "components/CellsComponentsGroup/types";
+import { randomIntFromInterval } from "helpers/randomNumber";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -42,7 +43,18 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
           <title>{"NMGIX | " + meta.title}</title>
         </Head>
         <header>
-          <h1>{meta.title}</h1>
+          <div
+            className={styles.title}
+            style={{
+              backgroundColor: meta.backgroundColor
+                ? meta.backgroundColor.length > 1
+                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${meta.backgroundColor.join(", ")});`
+                  : meta.backgroundColor[0]
+                : undefined,
+            }}>
+            <h1>{meta.title}</h1>
+            {meta.subtitle ? <span>{meta.subtitle}</span> : <></>}
+          </div>
           <div className={styles.articleStats}>
             {meta.authors_favorites ? (
               <span className={styles.favourite}>
