@@ -1,0 +1,16 @@
+{
+  "header.subtitle": "since 2020",
+
+  "aticles.loading.error": "Couldn't load articles, try again later",
+
+  "footer.title": "Back coupling",
+  "footer.subtitile": "write an email and select a communication goal",
+  "footer.form.header.purpose": "Communication goal ● {j}",
+  "footer.form.work.small": "A little work, singlepage",
+  "footer.form.work.mid": "Average job, multipage",
+  "footer.form.work.large": "Corporate website, etc.",
+  "footer.form.work.fulltime": "Permanent employment",
+  "footer.form.header.email": "Email",
+  "footer.form.send.button": "Submit",
+  "footer.form.send.warning": "If nmgix hasn't answered within 3 days, send it again"
+}

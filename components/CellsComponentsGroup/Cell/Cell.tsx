@@ -87,7 +87,6 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
       if (width === 2 && height === 1) {
         return (
           <div
-            // className='cell-type-article cell-type-article-2x1'
             className={clsx(styles.cellTypeArticle, styles.cellTypeArticle2x1)}
             style={{
               background: cell.backgroundColor

@@ -1,13 +1,13 @@
-import { join } from "path";
+import path, { join } from "path";
 import fs from "fs";
 import matter from "gray-matter";
 
 const doscDirectory = join(process.cwd(), "articles");
 
-export function getDocBySlug(slug: string) {
+export function getDocBySlug(slug: string, locale: string) {
   try {
     const realSlug = slug.replace("/article/", "");
-    const fullPath = join(doscDirectory, `${realSlug}.md`);
+    const fullPath = join(doscDirectory, locale, `${realSlug}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     return { slug: realSlug, meta: data, content };
@@ -22,6 +22,6 @@ function fileList(dir: string) {
   }, [] as string[]);
 }
 
-export function getAllDocs() {
-  return fileList(doscDirectory);
+export function getAllDocs(locale: string) {
+  return fileList(path.join(doscDirectory, locale));
 }

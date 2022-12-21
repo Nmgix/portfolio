@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import { Alert } from "nmgix-components/src";
-import React from "react";
+import React, { useEffect } from "react";
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import {
   ArticleCellData,
@@ -10,15 +10,20 @@ import {
   NewsletterDataTypes,
 } from "components/CellsComponentsGroup/types";
 import { CellGroup } from "components/CellsComponentsGroup";
+import { FormattedMessage } from "react-intl";
 
 const Home: NextPage<{ articles: NewsletterDataTypes[] }> = ({ articles }) => {
-  return <CellGroup data={articles} />;
+  return !articles || articles.length === 0 ? (
+    <FormattedMessage id='aticles.loading.error' />
+  ) : (
+    <CellGroup data={articles} />
+  );
 };
 
-export const getStaticProps: GetStaticProps = () => {
-  const articles = getAllDocs();
+export const getStaticProps: GetStaticProps = ({ locale }) => {
+  const articles = getAllDocs(locale!);
   const articlesData = articles.map((articleName) => {
-    const { meta, content } = getDocBySlug(articleName)!;
+    const { meta, content } = getDocBySlug(articleName, locale!)!;
     return {
       name: articleName,
       meta: meta,

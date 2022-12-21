@@ -1,6 +1,7 @@
 body,
 html {
   margin: 0;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -12,6 +13,10 @@ html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  & > div {
+    margin-left: calc(100vw - 100%);
+  }
 }
 
 // git cell related stuff, didnt want to take styles locally

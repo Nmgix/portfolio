@@ -48,7 +48,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
             style={{
               background: meta.backgroundColor
                 ? meta.backgroundColor.length > 1
-                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${meta.backgroundColor.join(", ")});`
+                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${meta.backgroundColor.join(", ")})`
                   : meta.backgroundColor[0]
                 : undefined,
               marginBottom: meta.backgroundColor ? "10px" : undefined,

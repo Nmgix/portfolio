@@ -1,0 +1,16 @@
+{
+  "header.subtitle": "с 2020г",
+
+  "aticles.loading.error": "Не удалось загрузить статьи, попробуйте позже",
+
+  "footer.title": "Обратная связь",
+  "footer.subtitile": "напишите почту и выберите цель связи",
+  "footer.form.header.purpose": "Цель связи ● {j}",
+  "footer.form.work.small": "Небольшая работа, одностраничник",
+  "footer.form.work.mid": "Средняя работа, многостраничник",
+  "footer.form.work.large": "Корпоративный сайт и пр.",
+  "footer.form.work.fulltime": "Постоянная работа",
+  "footer.form.header.email": "Почта",
+  "footer.form.send.button": "Отправить",
+  "footer.form.send.warning": "Если не ответил в течении 3дн, отправьте ещё раз"
+}

@@ -1,62 +1,86 @@
 import styles from "./Footer.module.scss";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button, Input } from "nmgix-components/src";
 import { Icon } from "components/Icon/Icon";
+import { FormattedMessage, useIntl } from "react-intl";
+
+enum JobTypes {
+  "small",
+  "mid",
+  "large",
+  "fulltime",
+}
 
 const Footer: React.FC = () => {
+  const [jobType, setJobType] = useState<keyof typeof JobTypes>("mid");
+  const intl = useIntl();
+  const selectedJob = intl.formatMessage({ id: `footer.form.work.${jobType}` });
+
   return (
     <footer className={styles.footer}>
-      <form className={styles.form}>
+      <form
+        className={styles.form}
+        onClick={(e) => {
+          e.preventDefault();
+        }}>
         <div className={styles.formHeader}>
-          <h1>Обратная связь</h1>
-          <span>напишите почту и выберите цель связи</span>
+          <h1>
+            <FormattedMessage id='footer.title' />
+          </h1>
+          <span>
+            <FormattedMessage id='footer.subtitile' />
+          </span>
         </div>
         <div className={styles.formBody}>
           <div className={styles.formBodyOptions}>
-            <span className={styles.formBodyNestedHeader}>Цель связи ● Средняя работа</span>
+            <span className={styles.formBodyNestedHeader}>
+              <FormattedMessage id='footer.form.header.purpose' values={{ j: selectedJob }} />
+            </span>
             <div className={styles.formBodyOptionsContent}>
               <Button
                 border={true}
-                onClick={() => {}}
+                onClick={() => setJobType("small")}
                 opacity={0.5}
                 size={"m"}
                 color={"background-default"}
                 backgroundColor={"background-alter"}>
-                Небольшая работа, одностраничник
+                <FormattedMessage id='footer.form.work.small' />
               </Button>
               <Button
                 border={true}
-                onClick={() => {}}
+                onClick={() => setJobType("mid")}
                 opacity={0.5}
                 size={"m"}
                 color={"background-default"}
                 backgroundColor={"background-alter"}>
-                Средняя работа, многостраничник
+                <FormattedMessage id='footer.form.work.mid' />
               </Button>
               <Button
                 border={true}
-                onClick={() => {}}
+                onClick={() => setJobType("large")}
                 opacity={0.5}
                 size={"m"}
                 color={"background-default"}
                 backgroundColor={"background-alter"}>
-                Корпоративный сайт и пр.
+                <FormattedMessage id='footer.form.work.large' />
               </Button>
               <Button
                 border={true}
-                onClick={() => {}}
+                onClick={() => setJobType("fulltime")}
                 opacity={0.5}
                 size={"m"}
                 color={"background-default"}
                 backgroundColor={"background-alter"}>
-                Постоянная работа
+                <FormattedMessage id='footer.form.work.fulltime' />
               </Button>
             </div>
           </div>
           <div className={styles.formBodySeparator} />
           <div className={styles.formBodyRequisites}>
-            <span className={styles.formBodyNestedHeader}>Почта</span>
+            <span className={styles.formBodyNestedHeader}>
+              <FormattedMessage id='footer.form.header.email' />
+            </span>
             <div className={styles.formBodyRequisitesContent}>
               <div className={styles.formBodyRequisitesContentControls}>
                 <Input placeholder='your-favorite@mail.domain' />
@@ -68,11 +92,15 @@ const Footer: React.FC = () => {
                   backgroundColor={"background-alter"}
                   color={"background-default"}
                   opacity={0.5}>
-                  <span>Отправить</span>
+                  <span>
+                    <FormattedMessage id='footer.form.send.button' />
+                  </span>
                   <Icon icon='arrow-right' width={18} height={15} />
                 </Button>
               </div>
-              <span>Если не ответил в течении 3дн, отправьте ещё раз</span>
+              <span>
+                <FormattedMessage id='footer.form.send.warning' />
+              </span>
             </div>
           </div>
         </div>
