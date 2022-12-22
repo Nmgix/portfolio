@@ -13,6 +13,7 @@ import { ArticlePageData } from "types/Article";
 import { Icon } from "components/Icon/Icon";
 import { ArticleCellData } from "components/CellsComponentsGroup/types";
 import { randomIntFromInterval } from "helpers/randomNumber";
+import { FormattedMessage } from "react-intl";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -67,12 +68,14 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
                   draggable={false}
                 /> */}
                 <Icon icon='star' width={13} height={13} />
-                Избранное у автора
+                <FormattedMessage id='article.subtitle.favourite' />
               </span>
             ) : (
               <></>
             )}
-            <span>{meta.ttr} мин. на чтение</span>
+            <span>
+              {meta.ttr} <FormattedMessage id='article.subtitle.ttr' />
+            </span>
             <span>{meta.date.replaceAll(".", "/")}</span>
           </div>
           {meta.techStack || meta.useful_links ? (
@@ -80,7 +83,9 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
               <div className={styles.stat}>
                 {meta.techStack ? (
                   <>
-                    <span className={styles.statHeader}>Стек технологий</span>
+                    <span className={styles.statHeader}>
+                      <FormattedMessage id='article.description.techstack' />
+                    </span>
                     <ul>
                       {meta.techStack.map((tech) => (
                         <li key={tech}>
@@ -96,7 +101,9 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
               <div className={styles.stat}>
                 {meta.useful_links ? (
                   <>
-                    <span className={styles.statHeader}>Полезные ссылки</span>
+                    <span className={styles.statHeader}>
+                      <FormattedMessage id='article.description.links' />
+                    </span>
                     <ul>
                       {meta.useful_links.map((link) => (
                         <li key={link.name}>
@@ -145,10 +152,16 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
         {qrLink !== undefined ? (
           <div className={styles.qrCode}>
             <div>
-              <h3>Вы дошли до конца статьи 🎉</h3>
-              <p>Если вам понравилось прочитанное, вы можете поделиться статьёй в соцсетях или скинуть QR-код справа</p>
+              <h3>
+                <FormattedMessage id='article.footer.title' />
+              </h3>
+              <p>
+                <FormattedMessage id='article.footer.calltoaction' />
+              </p>
               <div>
-                <h5>Поделиться</h5>
+                <h5>
+                  <FormattedMessage id='article.footer.share' />
+                </h5>
                 <div className={styles.socials}>
                   <Button size='m' onClick={() => {}} border={false}>
                     <Image src={"/icons/social-vk.svg"} width={25} height={25} alt='vk logo' draggable={false} />
@@ -178,14 +191,22 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
 
 export default Article;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const articles = getAllDocs();
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const articles = locales!
+    .map((locale) => {
+      const files = getAllDocs(locale);
+      return files.map((fileName) => {
+        return { fileName, locale };
+      });
+    })
+    .flat();
   return {
-    paths: articles.map((articleName) => {
+    paths: articles.map((file) => {
       return {
         params: {
-          prefix: articleName,
+          prefix: file.fileName,
         },
+        locale: file.locale,
       };
     }),
     // fallback: true,
@@ -193,9 +214,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = ({ params }) => {
+export const getStaticProps: GetStaticProps = ({ params, locale }) => {
   const { prefix } = params!;
-  let md = getDocBySlug(prefix as string);
+
+  let md = getDocBySlug(prefix as string, locale!);
   if (!md) {
     return {
       notFound: true,

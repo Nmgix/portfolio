@@ -5,4 +5,5 @@
     borderColor: "#07090c"
     url: "https://github.com/nmgix"
     nick: nmgix
+    locale: ru
 ---

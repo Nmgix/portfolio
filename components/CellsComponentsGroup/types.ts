@@ -8,6 +8,7 @@ export interface DefaultData {
   type: string;
   title: string;
   sizes: Size[];
+  locale: string;
 }
 
 // может быть будет генератор ссылок по типу информации, хз

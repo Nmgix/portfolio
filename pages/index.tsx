@@ -11,12 +11,15 @@ import {
 } from "components/CellsComponentsGroup/types";
 import { CellGroup } from "components/CellsComponentsGroup";
 import { FormattedMessage } from "react-intl";
+import { useRouter } from "next/router";
 
 const Home: NextPage<{ articles: NewsletterDataTypes[] }> = ({ articles }) => {
+  const router = useRouter();
+
   return !articles || articles.length === 0 ? (
-    <FormattedMessage id='aticles.loading.error' />
+    <FormattedMessage id='article.loading.error' />
   ) : (
-    <CellGroup data={articles} />
+    <CellGroup data={articles} locale={router.locale!} />
   );
 };
 
@@ -30,6 +33,7 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
       content: content,
     };
   }) as { name: string; meta: NewsletterDataTypes; content: string }[];
+
   const articleData: NewsletterDataTypes[] = articlesData.map((article) => {
     const { name, meta, content } = article;
 

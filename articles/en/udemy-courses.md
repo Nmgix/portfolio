@@ -1,13 +1,13 @@
 ---
     id: 2
-    title: Пройденные курсы <b>Udemy</b>
+    title: <b>Udemy</b> courses
     date: 19.12.22
     type: courses
     borderColor: '#5624D0'
     courses: [
       {
         title: "NodeJS",
-        teacher: "Владилен Минин",
+        teacher: "Vladilen Minin",
         mark: {
           stars: 3.7,
           starsMax: 5,
@@ -16,8 +16,8 @@
         link: "https://www.udemy.com/course/nodejs-full-guide/",
       },
       {
-        title: "React с нуля",
-        teacher: "Михаил Непомнящий",
+        title: "React from scratch",
+        teacher: "Mikhail Nepomnyashchy",
         mark: {
           stars: 4,
           starsMax: 5,
@@ -46,5 +46,5 @@
         link: "https://www.udemy.com/course/the-ultimate-mysql-bootcamp-go-from-sql-beginner-to-expert/",
       }
     ]
-    locale: ru
+    locale: en
 ---

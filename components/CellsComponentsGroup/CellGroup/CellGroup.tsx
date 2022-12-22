@@ -19,8 +19,8 @@ const mobileWidthThreshold = 700;
  * @param data array of news, articles e.t.c.
  * @returns {React.FC<{ data: NewsletterDataTypes[] }>} Functional Component
  */
-export const CellGroup: React.FC<{ data: NewsletterDataTypes[] }> = ({ data }) => {
-  const { width, height } = useWindowDimentions();
+export const CellGroup: React.FC<{ data: NewsletterDataTypes[]; locale: string }> = ({ data, locale }) => {
+  const { width } = useWindowDimentions();
   const [{ map, cells }, setCells] = useState<{ map: string[][]; cells: NewsletterDataTypes[] }>(() => createMap(data));
   const [domLoaded, setDomLoaded] = useState(false);
   const [mobile, setMobile] = useState<boolean>(width < mobileWidthThreshold);
@@ -35,7 +35,7 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[] }> = ({ data }) =
   }, [width]);
   useEffect(() => {
     setCells(() => createMap(data));
-  }, [mobile]);
+  }, [mobile, data]);
 
   function createMap(data: NewsletterDataTypes[]): any {
     const rowWidth = width < mobileWidthThreshold + 1 ? 2 : 4;

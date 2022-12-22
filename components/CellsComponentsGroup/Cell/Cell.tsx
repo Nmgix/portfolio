@@ -13,6 +13,7 @@ const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
 
 const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
   const { width, height } = cell.sizes[0];
+  console.log(cell);
 
   switch (cell.type) {
     case "git": {
@@ -104,7 +105,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             </div>
             <div className={clsx(styles.cellTypeArticleMain)}>
               <h3>
-                <Link href={cell.url} referrerPolicy='same-origin'>
+                <Link href={cell.url} locale={cell.locale} referrerPolicy='same-origin'>
                   {cell.title}
                 </Link>
               </h3>
@@ -146,9 +147,9 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
               )}
             </div>
             <h3>
-              <a href={cell.url} referrerPolicy='same-origin'>
+              <Link href={cell.url} locale={cell.locale} referrerPolicy='same-origin'>
                 {cell.title}
-              </a>
+              </Link>
             </h3>
             <div className={clsx(styles.cellTypeArticleMain)}>
               <div className={clsx(styles.articleTime)}>
@@ -206,7 +207,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
 /**
  * Cell Component.
  * Component used to render data, basing on data type and size of a cell.
- * @param data data t render, includes basic information (id, size) and type-specific (description, images, e.t.c.).
+ * @param data data to render, includes basic information (id, size) and type-specific (description, images, e.t.c.).
  * @returns {React.FC<NewsletterDataTypes>} Functional Component
  */
 export const Cell: React.FC<NewsletterDataTypes> = memo(
@@ -225,5 +226,7 @@ export const Cell: React.FC<NewsletterDataTypes> = memo(
       </li>
     );
   },
-  () => true
+  (prevProps, nextProps) => {
+    return prevProps.locale === nextProps.locale;
+  }
 );
