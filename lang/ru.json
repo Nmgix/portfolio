@@ -10,6 +10,11 @@
   "article.footer.calltoaction": "Если вам понравилось прочитанное, вы можете поделиться статьёй в соцсетях или скинуть QR-код справа",
   "article.footer.share": "Поделиться",
 
+  "article.github.commits": "коммитов в год",
+  "article.github.codereviews": "код-ревью в год",
+  "article.github.tickets": "тикетов",
+  "article.github.pullrequests": "пулл-реквесты",
+
   "page.404.title": "Страница не найдена",
   "page.404.subtitle": "Проверьте ссылку, возможно там лишние символы",
   "page.404.button": "Вернуться на главную",

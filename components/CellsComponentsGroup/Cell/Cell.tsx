@@ -7,6 +7,7 @@ import Markdown from "markdown-to-jsx";
 
 import dynamic from "next/dynamic";
 import { randomIntFromInterval } from "helpers/randomNumber";
+import { FormattedMessage } from "react-intl";
 const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
   ssr: false,
 });
@@ -23,19 +24,19 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             <h3>Github Stats</h3>
             <div>
               <span>
-                <b>{cell.gitData.commitsPerYear}</b> коммитов в год
+                <b>{cell.gitData.commitsPerYear}</b> <FormattedMessage id='article.github.commits' />
               </span>
               <span>
-                <b>{cell.gitData.codeReviewPersentage}%</b> код-ревью в год
+                <b>{cell.gitData.codeReviewPersentage}%</b> <FormattedMessage id='article.github.codereviews' />
               </span>
             </div>
             <ReactGitHubCalendar userName={cell.nick} responsive global_stats={false} tooltips={false} />
             <div>
               <span>
-                <b>{cell.gitData.issuesPersentage}%</b> тикетов
+                <b>{cell.gitData.issuesPersentage}%</b> <FormattedMessage id='article.github.tickets' />
               </span>
               <span>
-                <b>{cell.gitData.pullRequestsPersentage}%</b> пулл-реквесты
+                <b>{cell.gitData.pullRequestsPersentage}%</b> <FormattedMessage id='article.github.pullrequests' />
               </span>
             </div>
           </a>
@@ -110,7 +111,9 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                 </Link>
               </h3>
               <div className={clsx(styles.articleTime)}>
-                <span>{cell.ttr} мин на чтение</span>
+                <span>
+                  {cell.ttr} <FormattedMessage id='article.subtitle.ttr' />
+                </span>
                 <span>{cell.date}</span>
               </div>
               {cell.techStack ? (
@@ -153,7 +156,9 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
             </h3>
             <div className={clsx(styles.cellTypeArticleMain)}>
               <div className={clsx(styles.articleTime)}>
-                <span>{cell.ttr} мин на чтение</span>
+                <span>
+                  {cell.ttr} <FormattedMessage id='article.subtitle.ttr' />
+                </span>
                 <span>{cell.date}</span>
               </div>
               {cell.techStack ? (

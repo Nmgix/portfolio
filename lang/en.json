@@ -10,6 +10,11 @@
   "article.footer.calltoaction": "If you liked what you read, you can share this article on social networks or throw off the QR code on the right",
   "article.footer.share": "Share",
 
+  "article.github.commits": "commtis/year",
+  "article.github.codereviews": "code-reviews/year",
+  "article.github.tickets": "tickets",
+  "article.github.pullrequests": "pull-requests",
+
   "page.404.title": "Page not found",
   "page.404.subtitle": "Check the link, maybe there are extra characters",
   "page.404.button": "Back to main",
