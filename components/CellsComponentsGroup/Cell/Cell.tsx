@@ -14,7 +14,6 @@ const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
 
 const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
   const { width, height } = cell.sizes[0];
-  console.log(cell);
 
   switch (cell.type) {
     case "git": {

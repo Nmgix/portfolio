@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
       </form>
       <div className={styles.credentials}>
         <span>© 2020 - 2022</span>
-        <Image src={"/icons/nmgix-logo.png"} width={37} height={22} draggable={false} alt={`nmgix's logo`} />
+        <Image priority src={"/icons/nmgix-logo.png"} width={37} height={22} draggable={false} alt={`nmgix's logo`} />
       </div>
     </footer>
   );
