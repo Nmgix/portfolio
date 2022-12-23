@@ -51,57 +51,82 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
       );
     }
     case "courses": {
+      const CoursesSection: React.FC = () => (
+        <ul
+          className={clsx(styles.cellTypeCoursesContent)}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}>
+          {cell.courses.map((course) => (
+            <li key={course.title} style={{ border: `4px solid ${cell.borderColor}` }}>
+              <a href={course.link} referrerPolicy='no-referrer' target={"_blank"}>
+                <div className={clsx(styles.courseMain)}>
+                  <p>{course.title}</p>
+                  <p>{course.teacher}</p>
+                </div>
+                <div className={clsx(styles.courseStats)}>
+                  <span>
+                    <b>
+                      {course.mark.stars}/{course.mark.starsMax}
+                    </b>
+                  </span>
+                  <span>
+                    <b>{course.completePersantage}%</b>
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      );
+
       return (
         <div className={clsx(styles.cellTypeCourses)}>
           <h3 dangerouslySetInnerHTML={{ __html: cell.title }} />
-          <ul
-            className={clsx(styles.cellTypeCoursesContent)}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}>
-            {cell.courses.map((course) => (
-              <li key={course.title} style={{ border: `4px solid ${cell.borderColor}` }}>
-                <a href={course.link} referrerPolicy='no-referrer' target={"_blank"}>
-                  <div className={clsx(styles.courseMain)}>
-                    <p>{course.title}</p>
-                    <p>{course.teacher}</p>
-                  </div>
-                  <div className={clsx(styles.courseStats)}>
-                    <span>
-                      <b>
-                        {course.mark.stars}/{course.mark.starsMax}
-                      </b>
-                    </span>
-                    <span>
-                      <b>{course.completePersantage}%</b>
-                    </span>
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <CoursesSection />
         </div>
       );
     }
     case "article": {
+      const ArticleWrapper: React.FC<{ children: React.ReactNode; size: "2x1" | "2x2" }> = ({ children, size }) => (
+        <div
+          className={clsx(
+            styles.cellTypeArticle,
+            size === "2x1" ? styles.cellTypeArticle2x1 : styles.cellTypeArticle2x2
+          )}
+          style={{
+            background: cell.backgroundColor
+              ? cell.backgroundColor.length > 1
+                ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${cell.backgroundColor.join(",")})`
+                : cell.backgroundColor[0]
+              : undefined,
+          }}>
+          {children}
+        </div>
+      );
+
+      const ImageSection: React.FC = () =>
+        cell.image ? <img src={cell.image} draggable={false} /> : <div className={clsx(styles.imagePlaceholder)}></div>;
+
+      const TechStackSection: React.FC = () =>
+        cell.techStack ? (
+          <ul className={clsx(styles.articleTechstack)}>
+            {cell.techStack.map((technology) => (
+              <li key={technology}>
+                <b>{technology}</b>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <></>
+        );
+
       if (width === 2 && height === 1) {
         return (
-          <div
-            className={clsx(styles.cellTypeArticle, styles.cellTypeArticle2x1)}
-            style={{
-              background: cell.backgroundColor
-                ? cell.backgroundColor.length > 1
-                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${cell.backgroundColor.join(",")})`
-                  : cell.backgroundColor[0]
-                : undefined,
-            }}>
+          <ArticleWrapper size='2x1'>
             <div className={clsx(styles.imageWrapper)}>
-              {cell.image ? (
-                <img src={cell.image} draggable={false} />
-              ) : (
-                <div className={clsx(styles.imagePlaceholder)}></div>
-              )}
+              <ImageSection />
             </div>
             <div className={clsx(styles.cellTypeArticleMain)}>
               <h3>
@@ -115,38 +140,49 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                 </span>
                 <span>{cell.date}</span>
               </div>
-              {cell.techStack ? (
-                <ul className={clsx(styles.articleTechstack)}>
-                  {cell.techStack.map((technology) => (
-                    <li key={technology}>
-                      <b>{technology}</b>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <></>
-              )}
+              <TechStackSection />
             </div>
-          </div>
+          </ArticleWrapper>
         );
       } else {
+        const TrunticatedDescription: React.FC = () =>
+          cell.description && cell.description.toString().length > 90 ? (
+            <div
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "50%",
+                background: cell.backgroundColor
+                  ? undefined
+                  : `linear-gradient(180deg, #00000000, rgba(var(--color-background-alter), 1))`,
+                bottom: 0,
+              }}
+            />
+          ) : (
+            <></>
+          );
+
+        const DescriptionSection: React.FC = () =>
+          cell.description ? (
+            <div style={{ position: "relative" }}>
+              <p
+                className={clsx(styles.articleDescription)}
+                dangerouslySetInnerHTML={{
+                  __html: `${cell.description.toString().slice(0, 90)}${
+                    cell.description.toString().length > 90 ? "..." : ""
+                  }`,
+                }}
+              />
+              <TrunticatedDescription />
+            </div>
+          ) : (
+            <></>
+          );
+
         return (
-          <div
-            // className='cell-type-article cell-type-article-2x2'
-            className={clsx(styles.cellTypeArticle, styles.cellTypeArticle2x2)}
-            style={{
-              background: cell.backgroundColor
-                ? cell.backgroundColor.length > 1
-                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${cell.backgroundColor.join(",")})`
-                  : cell.backgroundColor[0]
-                : undefined,
-            }}>
+          <ArticleWrapper size='2x2'>
             <div className={clsx(styles.imageWrapper)}>
-              {cell.image ? (
-                <img src={cell.image} draggable={false} />
-              ) : (
-                <div className={clsx(styles.imagePlaceholder)}></div>
-              )}
+              <ImageSection />
             </div>
             <h3>
               <Link href={cell.url} locale={cell.locale} referrerPolicy='same-origin'>
@@ -160,48 +196,10 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                 </span>
                 <span>{cell.date}</span>
               </div>
-              {cell.techStack ? (
-                <ul className={clsx(styles.articleTechstack)}>
-                  {cell.techStack.map((technology) => (
-                    <li key={technology}>
-                      <b>{technology}</b>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <></>
-              )}
-              {cell.description ? (
-                <div style={{ position: "relative" }}>
-                  <p
-                    className={clsx(styles.articleDescription)}
-                    dangerouslySetInnerHTML={{
-                      __html: `${cell.description.toString().slice(0, 90)}${
-                        cell.description.toString().length > 90 ? "..." : ""
-                      }`,
-                    }}
-                  />
-                  {cell.description.toString().length > 90 ? (
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "50%",
-                        background: cell.backgroundColor
-                          ? undefined
-                          : `linear-gradient(180deg, #00000000, rgba(var(--color-background-alter), 1))`,
-                        bottom: 0,
-                      }}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              ) : (
-                <></>
-              )}
+              <TechStackSection />
+              <DescriptionSection />
             </div>
-          </div>
+          </ArticleWrapper>
         );
       }
     }

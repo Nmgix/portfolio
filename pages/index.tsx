@@ -1,6 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import { Alert } from "nmgix-components/src";
-import React, { useEffect } from "react";
+import React from "react";
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import {
   ArticleCellData,
@@ -37,36 +36,50 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
   const articleData: NewsletterDataTypes[] = articlesData.map((article) => {
     const { name, meta, content } = article;
 
-    if (meta.type === "article") {
-      return Object.assign({}, meta, {
-        image: meta.linkedImages[0],
-        url: "/article/" + name,
-        sizes: [
+    switch (meta.type) {
+      case "article": {
+        const sizes = [
           { width: 2, height: 1 },
           { width: 2, height: 2 },
-        ],
-      } as Partial<ArticleCellData>);
-    } else if (meta.type === "courses") {
-      return Object.assign({}, meta, {
-        sizes: [{ width: 1, height: 2 }],
-      } as Partial<CoursesCellData>);
-    } else if (meta.type === "git") {
-      return Object.assign({}, meta, {
-        gitData: {
-          issuesPersentage: 0,
-          commitsPerYear: 408,
-          codeReviewPersentage: 0,
-          pullRequestsPersentage: 4,
-        },
-        sizes: [{ width: 2, height: 1 }],
-      } as Partial<GitCellData>);
-    } else if (meta.type === "bio") {
-      return Object.assign({}, meta, {
-        sizes: [{ width: 2, height: 3 }],
-        description: content,
-      } as Partial<BioCellData>);
-    } else {
-      return meta;
+        ];
+
+        return Object.assign({}, meta, {
+          image: meta.linkedImages[0],
+          url: "/article/" + name,
+          sizes,
+        } as Partial<ArticleCellData>);
+      }
+      case "bio": {
+        const sizes = [{ width: 2, height: 3 }];
+
+        return Object.assign({}, meta, {
+          sizes,
+          description: content,
+        } as Partial<BioCellData>);
+      }
+      case "courses": {
+        const sizes = [{ width: 1, height: 2 }];
+
+        return Object.assign({}, meta, {
+          sizes,
+        } as Partial<CoursesCellData>);
+      }
+      case "git": {
+        const sizes = [{ width: 2, height: 1 }];
+
+        return Object.assign({}, meta, {
+          gitData: {
+            issuesPersentage: 0,
+            commitsPerYear: 0,
+            codeReviewPersentage: 0,
+            pullRequestsPersentage: 0,
+          },
+          sizes,
+        } as Partial<GitCellData>);
+      }
+      default: {
+        return meta;
+      }
     }
   });
 

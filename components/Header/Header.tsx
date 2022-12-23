@@ -1,4 +1,3 @@
-import { Icon } from "components/Icon/Icon";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +9,16 @@ import styles from "./Header.module.scss";
 
 const Header: React.FC = () => {
   const router = useRouter();
+
+  const ActiveLangButton: React.FC<{ children: React.ReactNode; locale: "ru" | "en" }> = ({ children, locale }) => {
+    return router.locale === locale ? (
+      <div style={{ opacity: 0.5 }}>{children}</div>
+    ) : (
+      <Button buttonBorder={false} onClick={() => router.push(router.asPath, undefined, { locale })} size='s'>
+        {children}
+      </Button>
+    );
+  };
 
   return (
     <header className={styles.header}>
@@ -24,7 +33,7 @@ const Header: React.FC = () => {
           <span>
             <FormattedMessage id='header.subtitle' />
           </span>
-          {router.locale === "ru" ? (
+          <ActiveLangButton locale='ru'>
             <Image
               src={"/icons/russian-flag.svg"}
               width={27}
@@ -32,18 +41,8 @@ const Header: React.FC = () => {
               alt={"Russian flag icon to navigate to russian translate page"}
               draggable={false}
             />
-          ) : (
-            <Button border={false} onClick={() => router.push("/", undefined, { locale: "ru" })} size='s'>
-              <Image
-                src={"/icons/russian-flag.svg"}
-                width={27}
-                height={15}
-                alt={"Russian flag icon to navigate to russian translate page"}
-                draggable={false}
-              />
-            </Button>
-          )}
-          {router.locale === "en" ? (
+          </ActiveLangButton>
+          <ActiveLangButton locale='en'>
             <Image
               src={"/icons/american-flag.svg"}
               width={27}
@@ -51,17 +50,7 @@ const Header: React.FC = () => {
               alt={"American flag icon to navigate to american translate page"}
               draggable={false}
             />
-          ) : (
-            <Button border={false} onClick={() => router.push("/", undefined, { locale: "en" })} size='s'>
-              <Image
-                src={"/icons/american-flag.svg"}
-                width={27}
-                height={15}
-                alt={"American flag icon to navigate to american translate page"}
-                draggable={false}
-              />
-            </Button>
-          )}
+          </ActiveLangButton>
         </div>
       </div>
       <div className={styles.settings}>

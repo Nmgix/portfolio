@@ -1,6 +1,8 @@
 {
   "header.subtitle": "с 2020г",
 
+  "controls.back": "Назад",
+
   "article.loading.error": "Не удалось загрузить статьи, попробуйте позже",
   "article.subtitle.favourite": "Избранное у автора",
   "article.subtitle.ttr": "мин. на чтение",

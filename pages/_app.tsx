@@ -12,11 +12,7 @@ import { useRouter } from "next/router";
 import { IntlProvider } from "react-intl";
 import ru from "../lang/ru.json";
 import en from "../lang/en.json";
-
-type Messages = {
-  ru: { [x: string]: string };
-  en: { [x: string]: string };
-};
+import { Messages } from "types/Localization";
 
 const messages: Messages = {
   ru,

@@ -5,11 +5,7 @@ import styles from "../_cell.module.scss";
 import React from "react";
 import clsx from "clsx";
 import useWindowDimentions from "nmgix-components/src/hooks/useWindowDimentions";
-
-type Pointer = {
-  x: number;
-  y: number;
-};
+import { Pointer } from "types/Cells";
 
 const mobileWidthThreshold = 700;
 
@@ -22,7 +18,14 @@ const mobileWidthThreshold = 700;
 export const CellGroup: React.FC<{ data: NewsletterDataTypes[]; locale: string }> = ({ data, locale }) => {
   const { width } = useWindowDimentions();
   const [{ map, cells }, setCells] = useState<{ map: string[][]; cells: NewsletterDataTypes[] }>(() => createMap(data));
+
   const [domLoaded, setDomLoaded] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setDomLoaded(true);
+    }
+  }, []);
+
   const [mobile, setMobile] = useState<boolean>(width < mobileWidthThreshold);
   useEffect(() => {
     setMobile(() => {
@@ -149,23 +152,15 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[]; locale: string }
     return init();
   }
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setDomLoaded(true);
-    }
-  }, []);
-
-  return (
-    <>
-      {domLoaded && (
-        <ul
-          style={{ gridTemplateAreas: "'" + map.map((row) => row.join(" ")).join("' '") + "'" }}
-          className={clsx(styles.cellGroup)}>
-          {cells.map((cell, i) => (
-            <Cell {...cell} key={cell.id} />
-          ))}
-        </ul>
-      )}
-    </>
+  const CellList: React.FC = () => (
+    <ul
+      style={{ gridTemplateAreas: "'" + map.map((row) => row.join(" ")).join("' '") + "'" }}
+      className={clsx(styles.cellGroup)}>
+      {cells.map((cell, i) => (
+        <Cell {...cell} key={cell.id} />
+      ))}
+    </ul>
   );
+  const cellsLoaded = domLoaded ? <CellList /> : <></>;
+  return cellsLoaded;
 };
