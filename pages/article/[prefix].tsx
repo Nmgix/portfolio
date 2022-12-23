@@ -29,7 +29,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   }, []);
 
   const BackButton: React.FC = () => (
-    <Button border={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
+    <Button buttonBorder={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
       <Icon icon='arrow-left' width={18} height={15} />
       <span>
         <FormattedMessage id='controls.back' />
@@ -117,37 +117,40 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
         <span>
           {meta.ttr} <FormattedMessage id='article.subtitle.ttr' />
         </span>
-        <span>{meta.date.replaceAll(".", "/")}</span>
+        <span>{meta.date ? meta.date.replaceAll(".", "/") : <></>}</span>
       </div>
       <MetaSubcontent />
     </header>
   );
 
-  const ImageSection: React.FC = () => (
-    <div className={styles.linkedImages}>
-      {meta.linkedImages.slice(0, 4).map((image) => (
-        <Image
-          src={image}
-          alt='linked image to article'
-          fill
-          sizes='(max-width: 768px) 400,
+  const ImageSection: React.FC = () =>
+    meta.linkedImages ? (
+      <div className={styles.linkedImages}>
+        {meta.linkedImages.slice(0, 4).map((image) => (
+          <Image
+            src={image}
+            alt='linked image to article'
+            fill
+            sizes='(max-width: 768px) 400,
 500'
-          priority={true}
-          key={image}
-          draggable={false}
-        />
-      ))}
-      {meta.linkedImages.length > 4 ? (
-        <span>
-          <Button border={false} onClick={() => {}} size='m'>
-            +{meta.linkedImages.length - 4}
-          </Button>
-        </span>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
+            priority={true}
+            key={image}
+            draggable={false}
+          />
+        ))}
+        {meta.linkedImages.length > 4 ? (
+          <span>
+            <Button buttonBorder={false} onClick={() => {}} size='m'>
+              +{meta.linkedImages.length - 4}
+            </Button>
+          </span>
+        ) : (
+          <></>
+        )}
+      </div>
+    ) : (
+      <></>
+    );
 
   const ContentSection: React.FC = () => (
     <section>
@@ -160,16 +163,16 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
 
   const SocialSection: React.FC = () => (
     <div className={styles.socials}>
-      <Button size='m' onClick={() => {}} border={false}>
+      <Button size='m' onClick={() => {}} buttonBorder={false}>
         <Image src={"/icons/social-vk.svg"} width={25} height={25} alt='vk logo' draggable={false} />
       </Button>
-      <Button size='m' onClick={() => {}} border={false}>
+      <Button size='m' onClick={() => {}} buttonBorder={false}>
         <Image src={"/icons/social-fb.svg"} width={25} height={25} alt='facebook logo' draggable={false} />
       </Button>
-      <Button size='m' onClick={() => {}} border={false}>
+      <Button size='m' onClick={() => {}} buttonBorder={false}>
         <Image src={"/icons/social-ig.svg"} width={25} height={25} alt='instagram logo' draggable={false} />
       </Button>
-      <Button size='m' onClick={() => {}} border={false}>
+      <Button size='m' onClick={() => {}} buttonBorder={false}>
         <Image src={"/icons/social-tg.svg"} width={25} height={25} alt='telegram logo' draggable={false} />
       </Button>
     </div>

@@ -1,4 +1,6 @@
 import "../styles/globals.scss";
+// import "../styles/fonts.scss";
+
 import "nmgix-components/src/index.scss";
 import styles from "../styles/pages/_app/_app.module.scss";
 

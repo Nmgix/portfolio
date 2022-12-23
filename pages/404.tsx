@@ -13,7 +13,12 @@ const PageNotExsists: React.FC = () => {
       <span>
         <FormattedMessage id='page.404.subtitle' />
       </span>
-      <Button border={false} onClick={() => {}} size='m' backgroundColor='background-alter' color='background-default'>
+      <Button
+        buttonBorder={false}
+        onClick={() => {}}
+        size='m'
+        backgroundColor='background-alter'
+        color='background-default'>
         <Link href={"/"}>
           <FormattedMessage id='page.404.button' />
         </Link>
