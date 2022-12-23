@@ -161,6 +161,6 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[]; locale: string }
       ))}
     </ul>
   );
-  const cellsLoaded = domLoaded ? <CellList /> : <></>;
-  return cellsLoaded;
+  const CellsLoaded = domLoaded ? <CellList /> : <></>;
+  return CellsLoaded;
 };

@@ -215,6 +215,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
 export const Cell: React.FC<NewsletterDataTypes> = memo(
   (cellData) => {
     const { id } = cellData;
+    console.log(cellData);
 
     return (
       <li
@@ -228,7 +229,7 @@ export const Cell: React.FC<NewsletterDataTypes> = memo(
       </li>
     );
   },
-  (prevProps, nextProps) => {
-    return prevProps.locale === nextProps.locale;
+  (prev, next) => {
+    return prev.locale === next.locale;
   }
 );

@@ -18,8 +18,8 @@ export default function Document() {
         <link rel='preload' href='/fonts/Inter/Inter-Light.woff' as='font' crossOrigin='' type='font/woff' />
         <link rel='preload' href='/fonts/Inter/Inter-Medium.woff2' as='font' crossOrigin='' type='font/woff2' />
         <link rel='preload' href='/fonts/Inter/Inter-Medium.woff' as='font' crossOrigin='' type='font/woff' />
-        <link rel='preload' href='/fonts/Inter/Inter-Semibold.woff2' as='font' crossOrigin='' type='font/woff2' />
-        <link rel='preload' href='/fonts/Inter/Inter-Semibold.woff' as='font' crossOrigin='' type='font/woff' />
+        <link rel='preload' href='/fonts/Inter/Inter-SemiBold.woff2' as='font' crossOrigin='' type='font/woff2' />
+        <link rel='preload' href='/fonts/Inter/Inter-SemiBold.woff' as='font' crossOrigin='' type='font/woff' />
         <link rel='preload' href='/fonts/Inter/Inter-Thin.woff2' as='font' crossOrigin='' type='font/woff2' />
         <link rel='preload' href='/fonts/Inter/Inter-Thin.woff' as='font' crossOrigin='' type='font/woff' />
       </Head>
