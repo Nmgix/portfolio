@@ -101,6 +101,7 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
                 ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${cell.backgroundColor.join(",")})`
                 : cell.backgroundColor[0]
               : undefined,
+            color: cell.color ?? "rgba(var(--color-background-default), 1)",
           }}>
           {children}
         </div>

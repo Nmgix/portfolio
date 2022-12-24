@@ -26,6 +26,7 @@ export interface ArticleCellData extends DefaultData {
   useful_links?: { name: string; url: string }[];
   // залить фон цветом или градиентом
   backgroundColor?: string[];
+  color?: string;
 }
 
 export interface CoursesCellData extends DefaultData {

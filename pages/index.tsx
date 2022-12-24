@@ -60,7 +60,10 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
         } as Partial<BioCellData>);
       }
       case "courses": {
-        const sizes = [{ width: 1, height: 2 }];
+        const sizes = [
+          { width: 1, height: 2 },
+          { width: 2, height: 2 },
+        ];
 
         return Object.assign({}, meta, {
           sizes,

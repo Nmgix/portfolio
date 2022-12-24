@@ -108,6 +108,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
               : meta.backgroundColor[0]
             : undefined,
           marginBottom: meta.backgroundColor ? "10px" : undefined,
+          color: meta.color ?? "rgba(var(--color-background-alter), 1)",
         }}>
         <h1>{meta.title}</h1>
         {meta.subtitle ? <span>{meta.subtitle}</span> : <></>}

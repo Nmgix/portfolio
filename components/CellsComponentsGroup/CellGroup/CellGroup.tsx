@@ -88,6 +88,7 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[]; locale: string; 
 
       function generateRandomSize(sizesData: DefaultData): DefaultData {
         const { sizes } = sizesData;
+        // console.log(sizes);
         sizesData.sizes = [sizes[Math.floor(Math.random() * sizes.length)]];
         return sizesData;
       }
@@ -142,6 +143,7 @@ export const CellGroup: React.FC<{ data: NewsletterDataTypes[]; locale: string; 
       }
 
       function init() {
+        // console.log(data);
         const cells = data.map((d) => generateRandomSize(d));
         let map: string[][] = assamble(cells);
 

@@ -4,6 +4,7 @@
     date: 19.12.22
     type: courses
     borderColor: '#5624D0'
+    locale: ru
     courses: [
       {
         title: "NodeJS",
@@ -46,5 +47,4 @@
         link: "https://www.udemy.com/course/the-ultimate-mysql-bootcamp-go-from-sql-beginner-to-expert/",
       }
     ]
-    locale: ru
 ---

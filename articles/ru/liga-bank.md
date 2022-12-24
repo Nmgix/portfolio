@@ -8,7 +8,8 @@
     type: article
     linkedImages: ["/images/articles/liga-bank/liga-bank-preview.png"]
     tech_stack: ['Typescript', 'React']
-    backgroundColor: ["#0057FF", "#F6F7FF"]
+    backgroundColor: ["#0057FF"]
+    color: ["#FFFFFF"]
     useful_links: [
         {
             name: 'Гитхаб', url: 'https://github.com/Nmgix/league-bank-ts'
