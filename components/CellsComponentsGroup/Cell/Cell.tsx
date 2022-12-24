@@ -212,24 +212,18 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
  * @param data data to render, includes basic information (id, size) and type-specific (description, images, e.t.c.).
  * @returns {React.FC<NewsletterDataTypes>} Functional Component
  */
-export const Cell: React.FC<NewsletterDataTypes> = memo(
-  (cellData) => {
-    const { id } = cellData;
-    console.log(cellData);
+export const Cell: React.FC<NewsletterDataTypes> = (cellData) => {
+  const { id } = cellData;
 
-    return (
-      <li
-        className={clsx(styles.cell)}
-        style={{
-          gridArea: `cell-${id}`,
-          border: cellData.type === "courses" || cellData.type === "git" ? `3px solid ${cellData.borderColor}` : "",
-        }}
-        key={id}>
-        <NewsletterDataComponent {...cellData} />
-      </li>
-    );
-  },
-  (prev, next) => {
-    return prev.locale === next.locale;
-  }
-);
+  return (
+    <li
+      className={clsx(styles.cell)}
+      style={{
+        gridArea: `cell-${id}`,
+        border: cellData.type === "courses" || cellData.type === "git" ? `3px solid ${cellData.borderColor}` : "",
+      }}
+      key={id}>
+      <NewsletterDataComponent {...cellData} />
+    </li>
+  );
+};

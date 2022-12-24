@@ -16,7 +16,6 @@ const Footer: React.FC = () => {
   const [jobType, setJobType] = useState<keyof typeof JobTypes>("mid");
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
   };
 
   const FormHeader: React.FC = () => (

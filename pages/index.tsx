@@ -11,14 +11,16 @@ import {
 import { CellGroup } from "components/CellsComponentsGroup";
 import { FormattedMessage } from "react-intl";
 import { useRouter } from "next/router";
+import useWindowDimentions from "nmgix-components/src/hooks/useWindowDimentions";
 
 const Home: NextPage<{ articles: NewsletterDataTypes[] }> = ({ articles }) => {
   const router = useRouter();
+  const { width } = useWindowDimentions();
 
   return !articles || articles.length === 0 ? (
     <FormattedMessage id='article.loading.error' />
   ) : (
-    <CellGroup data={articles} locale={router.locale!} />
+    <CellGroup data={articles} locale={router.locale!} width={width} />
   );
 };
 
