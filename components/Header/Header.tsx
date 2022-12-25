@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button } from "nmgix-components/src";
-import React from "react";
+
 import { FormattedMessage } from "react-intl";
 import styles from "./Header.module.scss";
 

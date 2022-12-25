@@ -8,7 +8,6 @@ export const cellTypeArticle2x1: string;
 export const cellTypeArticle2x2: string;
 export const cellTypeArticleMain: string;
 export const cellTypeBio: string;
-export const cellTypeBioContent: string;
 export const cellTypeCourses: string;
 export const cellTypeCoursesContent: string;
 export const cellTypeGithub: string;

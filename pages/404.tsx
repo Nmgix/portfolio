@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "nmgix-components/src";
-import React from "react";
+
 import { FormattedMessage } from "react-intl";
 import styles from "../styles/pages/404.module.scss";
 

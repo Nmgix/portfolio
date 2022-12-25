@@ -1,0 +1,23 @@
+@use "node_modules/nmgix-components/src/breakpoints.module.scss";
+
+.appController {
+  display: flex;
+  flex-direction: column;
+
+  width: 600px;
+  min-height: calc(100vh - 100px);
+  margin: 50px auto;
+
+  @media screen and (max-width: breakpoints.$breakpoint-mid-tablet) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: breakpoints.$breakpoint-xmax-phone) {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  @media screen and (max-width: breakpoints.$breakpoint-min-phone) {
+    width: 350px;
+  }
+}

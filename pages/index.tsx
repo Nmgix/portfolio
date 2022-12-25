@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import React from "react";
+
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import {
   ArticleCellData,

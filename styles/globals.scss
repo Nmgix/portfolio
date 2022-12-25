@@ -8,10 +8,7 @@ html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
-  & > div {
-    margin-left: calc(100vw - 100%);
-  }
+  margin-left: calc(100vw - 100%);
 }
 
 // git cell related stuff, didnt want to take styles locally
