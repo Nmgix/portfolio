@@ -1,4 +1,5 @@
-import React, { createContext, createRef, ReactNode, useContext } from "react";
+import React, { createContext, createRef, CSSProperties, ReactNode, useContext, useEffect } from "react";
+import { AppContext, AppControllerProps } from "types/AppContext";
 import styles from "./_app.controller.module.scss";
 
 import { AlertStack } from "nmgix-components/src";
@@ -10,18 +11,11 @@ import { AlertRef } from "nmgix-components/src/components/AlertComponentsGroup/t
 import { PopupRef } from "nmgix-components/src/components/PopupComponentsGroup";
 import { ThemeRef } from "nmgix-components/src/components/ThemeWrapperComponent";
 
-type AppContext = {
-  popupsControl: PopupRef;
-  alertsControl: AlertRef;
-};
 const AppContext = createContext<AppContext | undefined>(undefined);
-
-type AppControllerProps = {
-  children: ReactNode;
-};
 
 const AppController: React.FC<AppControllerProps> = ({ children }) => {
   const popupsRef = createRef<PopupRef>();
+  const themeRef = createRef<ThemeRef>();
 
   const alertsRef = createRef<AlertRef>();
   const alertSettings: Omit<AlertStackSettings, "alerts"> = {
@@ -29,12 +23,19 @@ const AppController: React.FC<AppControllerProps> = ({ children }) => {
     windowFixed: true,
   };
 
-  const themeRef = createRef<ThemeRef>();
+  // useEffect(() => {
+  //   console.log(alertsRef, popupsRef);
+  // }, [alertsRef, alertsRef.current, popupsRef, popupsRef.current]);
+
+  const alertStyles: CSSProperties = {
+    top: "5%",
+    right: "5%",
+  };
 
   return (
-    <AppContext.Provider value={{ alertsControl: alertsRef.current, popupsControl: popupsRef.current }}>
+    <AppContext.Provider value={{ alertsControl: alertsRef, popupsControl: popupsRef }}>
       <PopupStack ref={popupsRef} />
-      <AlertStack ref={alertsRef} alerts={[]} {...alertSettings} />
+      <AlertStack ref={alertsRef} alerts={[]} {...alertSettings} customStyles={alertStyles} />
       <ThemeWrapper ref={themeRef} />
       <div className={styles.appController}>{children}</div>
     </AppContext.Provider>
@@ -43,7 +44,6 @@ const AppController: React.FC<AppControllerProps> = ({ children }) => {
 
 export const useAppContext = () => {
   const context = useContext(AppContext);
-
   if (!context) {
     throw new Error("Контекст приложения не создался");
   }

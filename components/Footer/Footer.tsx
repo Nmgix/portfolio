@@ -5,17 +5,62 @@ import { Button, Input } from "nmgix-components/src";
 import { Icon } from "components/Icon/Icon";
 import { FormattedMessage, useIntl } from "react-intl";
 import { JobTypes } from "types/Footer";
+import { useAppContext } from "components/AppController/App.Controller";
+import {
+  PopupContent,
+  PopupControls,
+  PopupProps,
+} from "nmgix-components/src/components/PopupComponentsGroup/Popup/Popup";
 
 const Footer: React.FC = () => {
   const intl = useIntl();
+  const context = useAppContext();
 
   const [email, setEmail] = useState<string>("");
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     return setEmail(() => e.target.value.trim());
   };
   const [jobType, setJobType] = useState<keyof typeof JobTypes>("mid");
+
+  const FooterPopup: React.FC<Omit<Partial<PopupProps & PopupControls>, "children">> = ({ id, closePopup }) => {
+    return (
+      <div>
+        <span>форма подтверждения отправки сообщения!</span>
+        <button onClick={closePopup}>закрыть форму без ошибок</button>
+      </div>
+    );
+  };
+
+  const footerEmailPopup: PopupContent = {
+    children: <FooterPopup />,
+    onDestroy: (finished: boolean) => {
+      if (!finished) {
+        setTimeout(
+          () =>
+            context.alertsControl.current!.addAlert({
+              children: <span>вы отказались от прохождения каптчи</span>,
+              scheme: "warning",
+              type: "WindowFixed",
+            }),
+          0
+        );
+      } else {
+        setTimeout(
+          () =>
+            context.alertsControl.current!.addAlert({
+              children: <span>вы прошли каптчу</span>,
+              scheme: "success",
+              type: "WindowFixed",
+            }),
+          0
+        );
+      }
+    },
+  };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    context.popupsControl.current!.createPopup(footerEmailPopup.children, footerEmailPopup.onDestroy);
   };
 
   const FormHeader: React.FC = () => (

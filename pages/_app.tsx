@@ -3,7 +3,6 @@ import "../styles/globals.scss";
 import styles from "../styles/pages/_app/_app.module.scss";
 
 import type { AppProps } from "next/app";
-import { AppThemeContainer } from "nmgix-components/src";
 
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
@@ -26,13 +25,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AppController>
       <IntlProvider locale={locale!} messages={messages[locale as keyof Messages]}>
-        {/* <AppThemeContainer loaded noButton> */}
         <Header />
         <div className={styles.mainContent}>
           <Component {...pageProps} />
         </div>
         <Footer />
-        {/* </AppThemeContainer> */}
       </IntlProvider>
     </AppController>
   );

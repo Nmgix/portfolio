@@ -14,7 +14,7 @@
     grid-auto-columns: 23%;
 
     @media screen and (max-width: breakpoints.$breakpoint-mid-tablet) {
-      grid-auto-columns: 50%;
+      grid-auto-columns: 1fr;
     }
   }
 
