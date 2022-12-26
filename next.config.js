@@ -7,6 +7,9 @@ const nextConfig = withTM({
     locales: ["ru", "en"],
     defaultLocale: "ru",
   },
+  publicRuntimeConfig: {
+    HCAPTCHA_SITEKEY: process.env.HCAPTCHA_SITEKEY,
+  },
 });
 
 module.exports = nextConfig;

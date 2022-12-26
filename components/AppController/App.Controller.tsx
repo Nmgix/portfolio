@@ -23,10 +23,6 @@ const AppController: React.FC<AppControllerProps> = ({ children }) => {
     windowFixed: true,
   };
 
-  // useEffect(() => {
-  //   console.log(alertsRef, popupsRef);
-  // }, [alertsRef, alertsRef.current, popupsRef, popupsRef.current]);
-
   const alertStyles: CSSProperties = {
     top: "5%",
     right: "5%",

@@ -1,4 +1,4 @@
-import styles from "./Footer.module.scss";
+import styles from "./_footer.module.scss";
 import React, { memo, useState } from "react";
 import Image from "next/image";
 import { Button, Input } from "nmgix-components/src";
@@ -6,11 +6,8 @@ import { Icon } from "components/Icon/Icon";
 import { FormattedMessage, useIntl } from "react-intl";
 import { JobTypes } from "types/Footer";
 import { useAppContext } from "components/AppController/App.Controller";
-import {
-  PopupContent,
-  PopupControls,
-  PopupProps,
-} from "nmgix-components/src/components/PopupComponentsGroup/Popup/Popup";
+import { createFooterEmailPopup } from "./FooterPopup/FooterPopup";
+import { PopupCloseStatues } from "nmgix-components/src/components/PopupComponentsGroup/Popup/Popup";
 
 const Footer: React.FC = () => {
   const intl = useIntl();
@@ -20,47 +17,72 @@ const Footer: React.FC = () => {
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     return setEmail(() => e.target.value.trim());
   };
-  const [jobType, setJobType] = useState<keyof typeof JobTypes>("mid");
-
-  const FooterPopup: React.FC<Omit<Partial<PopupProps & PopupControls>, "children">> = ({ id, closePopup }) => {
-    return (
-      <div>
-        <span>форма подтверждения отправки сообщения!</span>
-        <button onClick={closePopup}>закрыть форму без ошибок</button>
-      </div>
-    );
-  };
-
-  const footerEmailPopup: PopupContent = {
-    children: <FooterPopup />,
-    onDestroy: (finished: boolean) => {
-      if (!finished) {
-        setTimeout(
-          () =>
-            context.alertsControl.current!.addAlert({
-              children: <span>вы отказались от прохождения каптчи</span>,
-              scheme: "warning",
-              type: "WindowFixed",
-            }),
-          0
-        );
-      } else {
-        setTimeout(
-          () =>
-            context.alertsControl.current!.addAlert({
-              children: <span>вы прошли каптчу</span>,
-              scheme: "success",
-              type: "WindowFixed",
-            }),
-          0
-        );
-      }
-    },
-  };
+  const [job, setJob] = useState<keyof typeof JobTypes>("mid");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    context.popupsControl.current!.createPopup(footerEmailPopup.children, footerEmailPopup.onDestroy);
+
+    const onDestroy = (status: keyof typeof PopupCloseStatues) => {
+      switch (status) {
+        case "close": {
+          return setTimeout(
+            () =>
+              context.alertsControl.current!.addAlert({
+                children: <span>Вы отказались от прохождения каптчи</span>,
+                scheme: "warning",
+                type: "WindowFixed",
+              }),
+            0
+          );
+        }
+        case "error": {
+          return setTimeout(
+            () =>
+              context.alertsControl.current!.addAlert({
+                children: <span>Произошла ошибка</span>,
+                scheme: "warning",
+                type: "WindowFixed",
+              }),
+            0
+          );
+        }
+        case "failure": {
+          return setTimeout(
+            () =>
+              context.alertsControl.current!.addAlert({
+                children: <span>Сообщение не отправлено</span>,
+                scheme: "warning",
+                type: "WindowFixed",
+              }),
+            0
+          );
+        }
+        case "success": {
+          return setTimeout(
+            () =>
+              context.alertsControl.current!.addAlert({
+                children: <span>Сообщение отправлено</span>,
+                scheme: "success",
+                type: "WindowFixed",
+              }),
+            0
+          );
+        }
+      }
+    };
+
+    // тут бы валидацию почты
+
+    if (email.trim().length === 0) {
+      return context.alertsControl.current!.addAlert({
+        children: <span>почта не указана</span>,
+        scheme: "warning",
+        type: "WindowFixed",
+      });
+    } else {
+      const { children } = createFooterEmailPopup(onDestroy, { email, job });
+      context.popupsControl.current!.createPopup(children, onDestroy);
+    }
   };
 
   const FormHeader: React.FC = () => (
@@ -83,8 +105,8 @@ const Footer: React.FC = () => {
         .map((key) => (
           <Button
             buttonBorder={true}
-            onClick={() => setJobType(key as keyof typeof JobTypes)}
-            opacity={jobType === key ? 1 : 0.5}
+            onClick={() => setJob(key as keyof typeof JobTypes)}
+            opacity={job === key ? 1 : 0.5}
             size={"m"}
             color={"background-default"}
             key={key}
@@ -95,7 +117,7 @@ const Footer: React.FC = () => {
     </div>
   );
 
-  const selectedJob = intl.formatMessage({ id: `footer.form.work.${jobType}` });
+  const selectedJob = intl.formatMessage({ id: `footer.form.work.${job}` });
   const leftFormSection = (
     <div className={styles.formBodyOptions}>
       <span className={styles.formBodyNestedHeader}>

@@ -1,9 +1,15 @@
-## Важно
+## Как запустить проект
 
-Для запуска `npm i npm@7.18.1 -g`
+Создайте `.env` формата
 
-### Ошибки
+```json
+    HOST=http://ВАШ_АЙПИ:3000
 
-Проблема с компиляцией, решение нашёл [здесь](https://stackoverflow.com/questions/64989575/how-to-load-libraries-which-export-typescript-in-next-js)
+    HCAPTCHA_SECRET=ВАШ_СЕКРЕТНЫЙ_КЛЮЧ
+    HCAPTCHA_SITEKEY=ВАШ_КЛЮЧ_САЙТА
 
-#FixMagicWithMoreMagic
+    SMTP_LOGIN=ЛОГИН-ПОЧТА
+    SMTP_PASS=ПАРОЛЬ
+```
+
+Перед запуском прописать `npm config set npm_config_ip=ВАШ_IP`, необходимо для того чтобы hCaptcha могла делать запрос на свои сервера (`localhost` и `127.0.0.1` под баном)
