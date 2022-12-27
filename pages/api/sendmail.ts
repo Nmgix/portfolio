@@ -34,16 +34,18 @@ export default async function handler(req: ExtendedNextApiRequest, res: NextApiR
         let sentMail = await transport.sendMail({
           from: `<${process.env.SMTP_LOGIN}>`,
           replyTo: req.body.email,
-          to: process.env.SMTP_LOGIN,
+          to: process.env.REQUESTS_MAIL,
           subject: `Новая заявка, ${JobTypes[req.body.job as keyof typeof JobTypes]}`,
           text: `Почта отправителя ${req.body.email}`,
         });
 
-        if (sentMail.accepted[0] === process.env.SMTP_LOGIN!) {
+        if (sentMail.accepted[0] === process.env.REQUESTS_MAIL) {
           return res.status(200).json({ sent: true });
         } else {
           return res.status(200).json({ sent: false });
         }
+      } else {
+        return res.status(200).json({ sent: false });
       }
     } catch (error) {
       console.log(error);
