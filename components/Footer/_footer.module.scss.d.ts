@@ -1,6 +1,7 @@
+export const content: string;
+export const contentHeader: string;
 export const credentials: string;
 export const footer: string;
-export const form: string;
 export const formBody: string;
 export const formBodyNestedHeader: string;
 export const formBodyOptions: string;
@@ -9,4 +10,3 @@ export const formBodyRequisites: string;
 export const formBodyRequisitesContent: string;
 export const formBodyRequisitesContentControls: string;
 export const formBodySeparator: string;
-export const formHeader: string;

@@ -10,6 +10,7 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { MailRequestBody, MailStatus } from "types/Mail";
 
 import getConfig from "next/config";
+import { useEffect } from "react";
 const { publicRuntimeConfig } = getConfig();
 const { HCAPTCHA_SITEKEY } = publicRuntimeConfig;
 
@@ -21,7 +22,7 @@ const FooterPopup: React.FC<Omit<Partial<PopupProps & PopupControls>, "children"
 }) => {
   return (
     <div className={styles.footerPopup}>
-      <span>Пожалуйста, пройдите каптчу для отправки сообщения</span>
+      <span className={styles.title}>Пожалуйста, пройдите каптчу для отправки сообщения</span>
       <HCaptcha
         sitekey={HCAPTCHA_SITEKEY}
         onExpire={() => closePopup!("close")}

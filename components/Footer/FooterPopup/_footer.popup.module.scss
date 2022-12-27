@@ -1,7 +1,6 @@
 .footerPopup {
   padding: 15px;
-  min-width: 300px;
-  min-height: 100px;
+  width: 333px;
   border-radius: 5px;
 
   color: rgb(var(--color-background-default));
@@ -10,4 +9,14 @@
   display: flex;
   position: relative;
   flex-direction: column;
+
+  .title {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  & > div {
+    display: flex;
+    justify-content: center;
+  }
 }

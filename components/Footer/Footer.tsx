@@ -71,11 +71,19 @@ const Footer: React.FC = () => {
       }
     };
 
-    // тут бы валидацию почты
+    const emailRegexp = new RegExp(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
 
     if (email.trim().length === 0) {
       return context.alertsControl.current!.addAlert({
-        children: <span>почта не указана</span>,
+        children: <span>Почта не указана</span>,
+        scheme: "warning",
+        type: "WindowFixed",
+      });
+    } else if (!emailRegexp.test(email)) {
+      return context.alertsControl.current!.addAlert({
+        children: <span>Неверный формат почты</span>,
         scheme: "warning",
         type: "WindowFixed",
       });
@@ -86,7 +94,7 @@ const Footer: React.FC = () => {
   };
 
   const FormHeader: React.FC = () => (
-    <div className={styles.formHeader}>
+    <div className={styles.contentHeader}>
       <h1>
         <FormattedMessage id='footer.title' />
       </h1>
@@ -160,17 +168,19 @@ const Footer: React.FC = () => {
   );
 
   const formContentSection = (
-    <div className={styles.formBody}>
-      {leftFormSection}
-      <div className={styles.formBodySeparator} />
-      {rightFormSection}
-    </div>
+    <form onSubmit={onSubmit}>
+      <div className={styles.formBody}>
+        {leftFormSection}
+        <div className={styles.formBodySeparator} />
+        {rightFormSection}
+      </div>
+    </form>
   );
   const formWrapper = (
-    <form className={styles.form} onSubmit={onSubmit}>
+    <div className={styles.content}>
       <FormHeader />
       {formContentSection}
-    </form>
+    </div>
   );
 
   const FooterSubtitleInformationSection: React.FC = memo(
