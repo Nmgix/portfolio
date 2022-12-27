@@ -23,15 +23,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { locale } = useRouter();
 
   return (
-    <AppController>
-      <IntlProvider locale={locale!} messages={messages[locale as keyof Messages]}>
+    <IntlProvider locale={locale!} messages={messages[locale as keyof Messages]}>
+      <AppController>
         <Header />
         <div className={styles.mainContent}>
           <Component {...pageProps} />
         </div>
         <Footer />
-      </IntlProvider>
-    </AppController>
+      </AppController>
+    </IntlProvider>
   );
 }
 

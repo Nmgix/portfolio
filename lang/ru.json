@@ -30,5 +30,6 @@
   "footer.form.work.fulltime": "Постоянная работа",
   "footer.form.header.email": "Почта",
   "footer.form.send.button": "Отправить",
-  "footer.form.send.warning": "Если не ответил в течении 3дн, отправьте ещё раз"
+  "footer.form.send.warning": "Если не ответил в течении 3дн, отправьте ещё раз",
+  "footer.popup.title": "Пожалуйста, пройдите каптчу для отправки сообщения"
 }

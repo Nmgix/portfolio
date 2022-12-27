@@ -30,5 +30,6 @@
   "footer.form.work.fulltime": "Permanent employment",
   "footer.form.header.email": "Email",
   "footer.form.send.button": "Submit",
-  "footer.form.send.warning": "If nmgix hasn't answered within 3 days, send it again"
+  "footer.form.send.warning": "If nmgix hasn't answered within 3 days, send it again",
+  "footer.popup.title": "Please go through the captcha to send a mail"
 }

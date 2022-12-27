@@ -1,5 +1,5 @@
 import styles from "./_footer.module.scss";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Image from "next/image";
 import { Button, Input } from "nmgix-components/src";
 import { Icon } from "components/Icon/Icon";
@@ -8,8 +8,13 @@ import { JobTypes } from "types/Footer";
 import { useAppContext } from "components/AppController/App.Controller";
 import { createFooterEmailPopup } from "./FooterPopup/FooterPopup";
 import { PopupCloseStatues } from "nmgix-components/src/components/PopupComponentsGroup/Popup/Popup";
+import handleViewport from "react-in-viewport";
+import { InjectedProps, TransitionStyles } from "types/Animation";
+import { Transition } from "react-transition-group";
 
-const Footer: React.FC = () => {
+const ViewportFooter: React.FC<InjectedProps> = (props) => {
+  const { inViewport, enterCount } = props;
+
   const intl = useIntl();
   const context = useAppContext();
 
@@ -193,12 +198,30 @@ const Footer: React.FC = () => {
     () => true
   );
 
+  const [rendered, setRendered] = useState<boolean>(false);
+  useEffect(() => {
+    setRendered(true);
+  }, [inViewport]);
+
+  const transitionStyles: TransitionStyles = {
+    entering: { transform: "translateY(200px)", opacity: 0 },
+    entered: { transform: "translateY(0px)", opacity: 1 },
+  };
+
   return (
-    <footer className={styles.footer}>
-      {formWrapper}
-      <FooterSubtitleInformationSection />
-    </footer>
+    <Transition timeout={500} in={rendered}>
+      {(state) =>
+        rendered && (
+          <footer className={styles.footer} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+            {formWrapper}
+            <FooterSubtitleInformationSection />
+          </footer>
+        )
+      }
+    </Transition>
   );
 };
+
+const Footer = handleViewport(ViewportFooter);
 
 export default Footer;

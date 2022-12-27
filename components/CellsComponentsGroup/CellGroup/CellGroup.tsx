@@ -4,7 +4,6 @@ import { DefaultData, NewsletterDataTypes, Size } from "../types";
 import styles from "../_cell.module.scss";
 
 import clsx from "clsx";
-import useWindowDimentions from "nmgix-components/src/hooks/useWindowDimentions";
 import { Pointer } from "types/Cells";
 
 const mobileWidthThreshold = 700;

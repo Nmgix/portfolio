@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useEffect, useState } from "react";
 import { NewsletterDataTypes } from "../types";
 import styles from "../_cell.module.scss";
 import clsx from "clsx";
@@ -11,6 +11,10 @@ import { FormattedMessage } from "react-intl";
 const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
   ssr: false,
 });
+
+import { Transition } from "react-transition-group";
+import handleViewport from "react-in-viewport";
+import { InjectedProps, TransitionStyles } from "types/Animation";
 
 const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
   const { width, height } = cell.sizes[0];
@@ -213,18 +217,39 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
  * @param data data to render, includes basic information (id, size) and type-specific (description, images, e.t.c.).
  * @returns {React.FC<NewsletterDataTypes>} Functional Component
  */
-export const Cell: React.FC<NewsletterDataTypes> = (cellData) => {
+export const ViewportCell: React.FC<NewsletterDataTypes & InjectedProps> = (cellData) => {
   const { id } = cellData;
+  const { inViewport, enterCount } = cellData;
+
+  const transitionStyles: TransitionStyles = {
+    entering: { opacity: 0, scale: "1.1" },
+    entered: { opacity: 1, scale: "1" },
+    exited: { opacity: 0, scale: "0.8" },
+  };
+
+  const [rendered, setRendered] = useState<boolean>(false);
+  useEffect(() => {
+    setRendered(true);
+  }, [inViewport]);
 
   return (
-    <li
-      className={clsx(styles.cell)}
-      style={{
-        gridArea: `cell-${id}`,
-        border: cellData.type === "courses" || cellData.type === "git" ? `3px solid ${cellData.borderColor}` : "",
-      }}
-      key={id}>
-      <NewsletterDataComponent {...cellData} />
-    </li>
+    <Transition timeout={100 * id} in={rendered && enterCount === 0}>
+      {(state) =>
+        rendered && (
+          <li
+            className={clsx(styles.cell, state)}
+            style={{
+              gridArea: `cell-${id}`,
+              border: cellData.type === "courses" || cellData.type === "git" ? `3px solid ${cellData.borderColor}` : "",
+              ...transitionStyles[state as keyof TransitionStyles],
+            }}
+            key={id}>
+            <NewsletterDataComponent {...cellData} />
+          </li>
+        )
+      }
+    </Transition>
   );
 };
+
+export const Cell = handleViewport(ViewportCell /** options: {}, config: {} **/);
