@@ -1,7 +1,7 @@
 import styles from "./_footer.module.scss";
 import React, { memo, useEffect, useState } from "react";
 import Image from "next/image";
-import { Button, Input } from "nmgix-components/src";
+import { Button, InjectedProps, Input, TransitionStyles } from "nmgix-components/src";
 import { Icon } from "components/Icon/Icon";
 import { FormattedMessage, useIntl } from "react-intl";
 import { JobTypes } from "types/Footer";
@@ -9,7 +9,6 @@ import { useAppContext } from "components/AppController/App.Controller";
 import { createFooterEmailPopup } from "./FooterPopup/FooterPopup";
 import { PopupCloseStatues } from "nmgix-components/src/components/PopupComponentsGroup/Popup/Popup";
 import handleViewport from "react-in-viewport";
-import { InjectedProps, TransitionStyles } from "types/Animation";
 import { Transition } from "react-transition-group";
 
 const ViewportFooter: React.FC<InjectedProps> = (props) => {

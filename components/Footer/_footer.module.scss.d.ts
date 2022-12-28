@@ -2,6 +2,7 @@ export const content: string;
 export const contentHeader: string;
 export const credentials: string;
 export const footer: string;
+export const form: string;
 export const formBody: string;
 export const formBodyNestedHeader: string;
 export const formBodyOptions: string;
