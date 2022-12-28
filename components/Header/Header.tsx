@@ -35,52 +35,51 @@ const Header: React.FC = () => {
     entering: { opacity: 0 },
     entered: { opacity: 1 },
     exiting: { opacity: 0 },
+    exited: { opacity: 0 },
   };
 
   return (
     <Transition timeout={100} in={rendered}>
-      {(state) =>
-        rendered && (
-          <header className={styles.header} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
-            <Head>
-              <title>NMGIX</title>
-            </Head>
-            <div className={styles.hero}>
-              <Link href={"/"}>
-                <h3>NMGIX</h3>
-              </Link>
-              <div className={styles.controls}>
-                <span>
-                  <FormattedMessage id='header.subtitle' />
-                </span>
-                <ActiveLangButton locale='ru' router={router}>
-                  <Image
-                    src={"/icons/russian-flag.svg"}
-                    width={27}
-                    height={15}
-                    alt={"Russian flag icon to navigate to russian translate page"}
-                    draggable={false}
-                  />
-                </ActiveLangButton>
-                <ActiveLangButton locale='en' router={router}>
-                  <Image
-                    src={"/icons/american-flag.svg"}
-                    width={27}
-                    height={15}
-                    alt={"American flag icon to navigate to american translate page"}
-                    draggable={false}
-                  />
-                </ActiveLangButton>
-              </div>
+      {(state) => (
+        <header className={styles.header} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+          <Head>
+            <title>NMGIX</title>
+          </Head>
+          <div className={styles.hero}>
+            <Link href={"/"}>
+              <h3>NMGIX</h3>
+            </Link>
+            <div className={styles.controls}>
+              <span>
+                <FormattedMessage id='header.subtitle' />
+              </span>
+              <ActiveLangButton locale='ru' router={router}>
+                <Image
+                  src={"/icons/russian-flag.svg"}
+                  width={27}
+                  height={15}
+                  alt={"Russian flag icon to navigate to russian translate page"}
+                  draggable={false}
+                />
+              </ActiveLangButton>
+              <ActiveLangButton locale='en' router={router}>
+                <Image
+                  src={"/icons/american-flag.svg"}
+                  width={27}
+                  height={15}
+                  alt={"American flag icon to navigate to american translate page"}
+                  draggable={false}
+                />
+              </ActiveLangButton>
             </div>
-            <div className={styles.settings}>
-              {/* <Button border={false} onClick={() => {}} size='s'>
+          </div>
+          <div className={styles.settings}>
+            {/* <Button border={false} onClick={() => {}} size='s'>
           <Icon icon='gear' width={30} height={30} />
         </Button> */}
-            </div>
-          </header>
-        )
-      }
+          </div>
+        </header>
+      )}
     </Transition>
   );
 };

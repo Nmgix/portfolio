@@ -7,13 +7,14 @@ import { QRCodeSVG } from "qrcode.react";
 
 import { getAllDocs, getDocBySlug } from "helpers/getDocBySlug";
 import Head from "next/head";
-import { Button } from "nmgix-components/src";
+import { Button, TransitionStyles } from "nmgix-components/src";
 import { useRouter } from "next/router";
 import { ArticlePageData } from "types/Article";
 import { Icon } from "components/Icon/Icon";
 import { ArticleCellData } from "components/CellsComponentsGroup/types";
 import { randomIntFromInterval } from "helpers/randomNumber";
 import { FormattedMessage } from "react-intl";
+import { Transition, TransitionGroup } from "react-transition-group";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -27,6 +28,18 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
       setQRLink(host + router.asPath);
     }
   }, []);
+
+  const [rendered, setRendered] = useState<boolean>(false);
+  useEffect(() => {
+    setRendered(true);
+  }, []);
+
+  const transitionStyles: TransitionStyles = {
+    entering: { opacity: 0, transform: "translateY(-30px)" },
+    entered: { opacity: 1, transform: "translateY(0px)" },
+    exiting: { opacity: 0, transform: "translateY(30px)" },
+    exited: { opacity: 0 },
+  };
 
   const BackButton: React.FC = () => (
     <Button buttonBorder={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
@@ -98,57 +111,72 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
     );
 
   const ArticleHeader: React.FC = () => (
-    <header>
-      <div
-        className={styles.title}
-        style={{
-          background: meta.backgroundColor
-            ? meta.backgroundColor.length > 1
-              ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${meta.backgroundColor.join(", ")})`
-              : meta.backgroundColor[0]
-            : undefined,
-          marginBottom: meta.backgroundColor ? "10px" : undefined,
-          color: meta.color ?? "rgba(var(--color-background-alter), 1)",
-        }}>
-        <h1>{meta.title}</h1>
-        {meta.subtitle ? <span>{meta.subtitle}</span> : <></>}
-      </div>
-      <div className={styles.articleStats}>
-        <MetaAuthorsFavourite />
-        <span>
-          {meta.ttr} <FormattedMessage id='article.subtitle.ttr' />
-        </span>
-        <span>{meta.date ? meta.date.replaceAll(".", "/") : <></>}</span>
-      </div>
-      <MetaSubcontent />
-    </header>
+    <Transition in={rendered} timeout={100}>
+      {(state) => (
+        <header
+          style={{
+            ...transitionStyles[state as keyof TransitionStyles],
+          }}>
+          <div
+            className={styles.title}
+            style={{
+              background: meta.backgroundColor
+                ? meta.backgroundColor.length > 1
+                  ? `linear-gradient(${randomIntFromInterval(0, 360)}deg, ${meta.backgroundColor.join(", ")})`
+                  : meta.backgroundColor[0]
+                : undefined,
+              marginBottom: meta.backgroundColor ? "10px" : undefined,
+              color: meta.color ?? "rgba(var(--color-background-alter), 1)",
+            }}>
+            <h1>{meta.title}</h1>
+            {meta.subtitle ? <span>{meta.subtitle}</span> : <></>}
+          </div>
+          <div className={styles.articleStats}>
+            <MetaAuthorsFavourite />
+            <span>
+              {meta.ttr} <FormattedMessage id='article.subtitle.ttr' />
+            </span>
+            <span>{meta.date ? meta.date.replaceAll(".", "/") : <></>}</span>
+          </div>
+          <MetaSubcontent />
+        </header>
+      )}
+    </Transition>
   );
 
   const ImageSection: React.FC = () =>
     meta.linkedImages ? (
-      <div className={styles.linkedImages}>
-        {meta.linkedImages.slice(0, 4).map((image) => (
-          <Image
-            src={image}
-            alt='linked image to article'
-            fill
-            sizes='(max-width: 768px) 400,
-500'
-            priority={true}
-            key={image}
-            draggable={false}
-          />
-        ))}
-        {meta.linkedImages.length > 4 ? (
-          <span>
-            <Button buttonBorder={false} onClick={() => {}} size='m'>
-              +{meta.linkedImages.length - 4}
-            </Button>
-          </span>
-        ) : (
-          <></>
+      <Transition in={rendered} timeout={250}>
+        {(state) => (
+          <div
+            className={styles.linkedImages}
+            style={{
+              ...transitionStyles[state as keyof TransitionStyles],
+            }}>
+            {meta.linkedImages.slice(0, 4).map((image) => (
+              <Image
+                src={image}
+                alt='linked image to article'
+                fill
+                sizes='(max-width: 768px) 400,
+            500'
+                priority={true}
+                key={image}
+                draggable={false}
+              />
+            ))}
+            {meta.linkedImages.length > 4 ? (
+              <span>
+                <Button buttonBorder={false} onClick={() => {}} size='m'>
+                  +{meta.linkedImages.length - 4}
+                </Button>
+              </span>
+            ) : (
+              <></>
+            )}
+          </div>
         )}
-      </div>
+      </Transition>
     ) : (
       <></>
     );
@@ -156,9 +184,17 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const ContentSection: React.FC = () => (
     <section>
       <ImageSection />
-      <main className={styles.main}>
-        <Markdown>{content}</Markdown>
-      </main>
+      <Transition in={rendered} timeout={350}>
+        {(state) => (
+          <main
+            className={styles.main}
+            style={{
+              ...transitionStyles[state as keyof TransitionStyles],
+            }}>
+            <Markdown>{content}</Markdown>
+          </main>
+        )}
+      </Transition>
     </section>
   );
 
@@ -183,23 +219,31 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
     qrLink === undefined ? (
       <></>
     ) : (
-      <div className={styles.qrCode}>
-        <div>
-          <h3>
-            <FormattedMessage id='article.footer.title' />
-          </h3>
-          <p>
-            <FormattedMessage id='article.footer.calltoaction' />
-          </p>
-          <div>
-            <h5>
-              <FormattedMessage id='article.footer.share' />
-            </h5>
-            <SocialSection />
+      <Transition in={rendered} timeout={250}>
+        {(state) => (
+          <div
+            className={styles.qrCode}
+            style={{
+              ...transitionStyles[state as keyof TransitionStyles],
+            }}>
+            <div>
+              <h3>
+                <FormattedMessage id='article.footer.title' />
+              </h3>
+              <p>
+                <FormattedMessage id='article.footer.calltoaction' />
+              </p>
+              <div>
+                <h5>
+                  <FormattedMessage id='article.footer.share' />
+                </h5>
+                <SocialSection />
+              </div>
+            </div>
+            <QRCodeSVG value={qrLink} />
           </div>
-        </div>
-        <QRCodeSVG value={qrLink} />
-      </div>
+        )}
+      </Transition>
     );
 
   return (
@@ -209,9 +253,11 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
         <Head>
           <title>{"NMGIX | " + meta.title}</title>
         </Head>
-        <ArticleHeader />
-        <ContentSection />
-        <QRLinkSection />
+        <TransitionGroup component={null}>
+          <ArticleHeader />
+          <ContentSection />
+          <QRLinkSection />
+        </TransitionGroup>
       </div>
     </>
   );
