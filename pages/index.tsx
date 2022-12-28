@@ -8,7 +8,7 @@ import {
   GitCellData,
   NewsletterDataTypes,
 } from "components/CellsComponentsGroup/types";
-import { CellGroup } from "components/CellsComponentsGroup";
+import { CellGroup } from "components/CellsComponentsGroup/CellGroup/CellGroup";
 import { FormattedMessage } from "react-intl";
 import { useRouter } from "next/router";
 import useWindowDimentions from "nmgix-components/src/hooks/useWindowDimentions";

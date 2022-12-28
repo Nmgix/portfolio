@@ -21,7 +21,7 @@ const FooterPopup: React.FC<Omit<Partial<PopupProps & PopupControls>, "children"
   job,
 }) => {
   return (
-    <div className={styles.footerPopup}>
+    <div className={styles.footerPopup} key={id}>
       <span className={styles.title}>
         <FormattedMessage id='footer.popup.title' />
       </span>

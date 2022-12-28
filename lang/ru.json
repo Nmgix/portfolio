@@ -3,6 +3,13 @@
 
   "controls.back": "Назад",
 
+  "alerts.footer.email.miss": "Почта не указана",
+  "alerts.footer.email.wrongformat": "Неверный формат почты",
+  "alerts.footer.email.refuse": "Сообщение не отправлено",
+  "alerts.footer.email.success": "Сообщение отправлено",
+  "alerts.footer.captcha.refuse": "Вы отказались от прохождения каптчи",
+  "alerts.footer.error": "Произошла ошибка",
+
   "article.loading.error": "Не удалось загрузить статьи, попробуйте позже",
   "article.subtitle.favourite": "Избранное у автора",
   "article.subtitle.ttr": "мин. на чтение",

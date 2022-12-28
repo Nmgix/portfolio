@@ -1,3 +1,13 @@
+@use "node_modules/nmgix-components/src/breakpoints.module.scss";
+
+body {
+  overflow-x: hidden;
+
+  @media screen and (max-width: breakpoints.$breakpoint-min-phone) {
+    overflow-x: auto;
+  }
+}
+
 body,
 html {
   margin: 0;

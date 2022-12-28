@@ -1,0 +1,9 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  & > div > canvas:nth-child(2) {
+    filter: blur(100px);
+  }
+}

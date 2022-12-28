@@ -13,6 +13,12 @@ import ru from "../lang/ru.json";
 import en from "../lang/en.json";
 import { Messages } from "types/Localization";
 import AppController from "components/AppController/App.Controller";
+// import { Background } from "components/Background/Background";
+import dynamic from "next/dynamic";
+
+const Background = dynamic(() => import("../components/Background/Background"), {
+  ssr: false,
+});
 
 const messages: Messages = {
   ru,
@@ -25,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <IntlProvider locale={locale!} messages={messages[locale as keyof Messages]}>
       <AppController>
+        <Background />
         <Header />
         <div className={styles.mainContent}>
           <Component {...pageProps} />

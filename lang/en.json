@@ -3,6 +3,13 @@
 
   "controls.back": "Back",
 
+  "alerts.footer.email.miss": "Email is not specified",
+  "alerts.footer.email.wrongformat": "Invalid email format",
+  "alerts.footer.email.refuse": "The email has not been sent",
+  "alerts.footer.email.success": "The email has been sent",
+  "alerts.footer.captcha.refuse": "You refused to pass the captcha",
+  "alerts.footer.error": "Error occured",
+
   "article.loading.error": "Couldn't load articles, try again later",
   "article.subtitle.favourite": "Author's favourite",
   "article.subtitle.ttr": "mins to read",

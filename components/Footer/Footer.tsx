@@ -12,7 +12,7 @@ import handleViewport from "react-in-viewport";
 import { Transition } from "react-transition-group";
 
 const ViewportFooter: React.FC<InjectedProps> = (props) => {
-  const { inViewport, enterCount } = props;
+  const { inViewport } = props;
 
   const intl = useIntl();
   const context = useAppContext();
@@ -32,7 +32,7 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
           return setTimeout(
             () =>
               context.alertsControl.current!.addAlert({
-                children: <span>Вы отказались от прохождения каптчи</span>,
+                children: <span>{intl.formatMessage({ id: "alerts.footer.captcha.refuse" })}</span>,
                 scheme: "warning",
                 type: "WindowFixed",
               }),
@@ -43,7 +43,7 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
           return setTimeout(
             () =>
               context.alertsControl.current!.addAlert({
-                children: <span>Произошла ошибка</span>,
+                children: <span>{intl.formatMessage({ id: "alerts.footer.error" })}</span>,
                 scheme: "warning",
                 type: "WindowFixed",
               }),
@@ -54,7 +54,7 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
           return setTimeout(
             () =>
               context.alertsControl.current!.addAlert({
-                children: <span>Сообщение не отправлено</span>,
+                children: <span>{intl.formatMessage({ id: "alerts.footer.email.refuse" })}</span>,
                 scheme: "warning",
                 type: "WindowFixed",
               }),
@@ -65,7 +65,7 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
           return setTimeout(
             () =>
               context.alertsControl.current!.addAlert({
-                children: <span>Сообщение отправлено</span>,
+                children: <span>{intl.formatMessage({ id: "alerts.footer.email.success" })}</span>,
                 scheme: "success",
                 type: "WindowFixed",
               }),
@@ -81,13 +81,13 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
 
     if (email.trim().length === 0) {
       return context.alertsControl.current!.addAlert({
-        children: <span>Почта не указана</span>,
+        children: <span>{intl.formatMessage({ id: "alerts.footer.email.miss" })}</span>,
         scheme: "warning",
         type: "WindowFixed",
       });
     } else if (!emailRegexp.test(email)) {
       return context.alertsControl.current!.addAlert({
-        children: <span>Неверный формат почты</span>,
+        children: <span>{intl.formatMessage({ id: "alerts.footer.email.wrongformat" })}</span>,
         scheme: "warning",
         type: "WindowFixed",
       });
@@ -205,18 +205,17 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
   const transitionStyles: TransitionStyles = {
     entering: { transform: "translateY(200px)", opacity: 0 },
     entered: { transform: "translateY(0px)", opacity: 1 },
+    exited: { opacity: 0 },
   };
 
   return (
     <Transition timeout={500} in={rendered}>
-      {(state) =>
-        rendered && (
-          <footer className={styles.footer} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
-            {formWrapper}
-            <FooterSubtitleInformationSection />
-          </footer>
-        )
-      }
+      {(state) => (
+        <footer className={styles.footer} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+          {formWrapper}
+          <FooterSubtitleInformationSection />
+        </footer>
+      )}
     </Transition>
   );
 };
