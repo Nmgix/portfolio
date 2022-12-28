@@ -13,8 +13,8 @@ import ru from "../lang/ru.json";
 import en from "../lang/en.json";
 import { Messages } from "types/Localization";
 import AppController from "components/AppController/App.Controller";
-// import { Background } from "components/Background/Background";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 const Background = dynamic(() => import("../components/Background/Background"), {
   ssr: false,
@@ -30,6 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <IntlProvider locale={locale!} messages={messages[locale as keyof Messages]}>
+      <Head>
+        <meta name='viewport' content='width=device-width, minimum-scale=1'></meta>
+      </Head>
       <AppController>
         <Background />
         <Header />

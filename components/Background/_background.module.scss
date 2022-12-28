@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
 
-  & > div > canvas:nth-child(2) {
+  & > div > canvas {
     filter: blur(100px);
   }
 }

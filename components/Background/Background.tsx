@@ -124,9 +124,6 @@ const Background: React.FC = () => {
           className={styles.background}
           ref={stageRef}
           style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
-          <Layer>
-            <Rect fill='black' width={600} height={800} />
-          </Layer>
           <ElementsLayout windowSizes={windowSizes} />
         </Stage>
       )}
