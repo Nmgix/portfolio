@@ -42,12 +42,18 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   };
 
   const BackButton: React.FC = () => (
-    <Button buttonBorder={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
-      <Icon icon='arrow-left' width={18} height={15} />
-      <span>
-        <FormattedMessage id='controls.back' />
-      </span>
-    </Button>
+    <Transition in={rendered} timeout={1000}>
+      {(state) => (
+        <div style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+          <Button buttonBorder={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
+            <Icon icon='arrow-left' width={18} height={15} />
+            <span>
+              <FormattedMessage id='controls.back' />
+            </span>
+          </Button>
+        </div>
+      )}
+    </Transition>
   );
 
   const MetaTechstack: React.FC = () =>
@@ -248,17 +254,17 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
 
   return (
     <>
-      <BackButton />
-      <div className={styles.article}>
-        <Head>
-          <title>{"NMGIX | " + meta.title}</title>
-        </Head>
-        <TransitionGroup component={null}>
+      <TransitionGroup component={null}>
+        <BackButton />
+        <div className={styles.article}>
+          <Head>
+            <title>{"NMGIX | " + meta.title}</title>
+          </Head>
           <ArticleHeader />
           <ContentSection />
           <QRLinkSection />
-        </TransitionGroup>
-      </div>
+        </div>
+      </TransitionGroup>
     </>
   );
 };

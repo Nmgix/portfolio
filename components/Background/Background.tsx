@@ -3,6 +3,7 @@ import { getRandomColor } from "helpers/randomColor";
 import Konva from "konva";
 import { TransitionStyles } from "nmgix-components/src";
 import useWindowDimentions from "nmgix-components/src/hooks/useWindowDimentions";
+import useDocumentDimentions from "nmgix-components/src/hooks/useDocumentDimentions";
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import { Circle, Stage } from "react-konva";
 import { Layer, Rect } from "react-konva";
@@ -10,7 +11,8 @@ import { Transition } from "react-transition-group";
 import { v4 as uuid } from "uuid";
 
 import styles from "./_background.module.scss";
-import gsap, { TimelineLite } from "gsap";
+import gsap from "gsap";
+import { Power3 } from "gsap";
 
 type ObjectSize = {
   width: number;
@@ -35,17 +37,36 @@ const CircleCanvas: React.FC<BackgroundCircle> = ({ size, from, to, duration, fi
   const circleRef: RefObject<Konva.Circle> = useRef(null);
 
   useEffect(() => {
+    // circleRef.current!.cache({ offset: 100 });
+
     const tl = gsap.timeline();
 
     tl.to(circleRef.current, {
-      opacity: 0,
+      opacity: 1,
+      duration: 1,
+    }).to(circleRef.current, {
+      x: to.x,
+      y: to.y,
+      ease: Power3.easeInOut,
       duration: duration,
-      delay: 1.5,
+      opacity: 0,
       onComplete: callback,
     });
   }, []);
 
-  return <Circle width={size.width} height={size.height} x={from.x} y={from.y} fill={fill[0]} ref={circleRef} />;
+  return (
+    <Circle
+      width={size.width}
+      height={size.height}
+      x={from.x}
+      y={from.y}
+      fill={fill[0]}
+      ref={circleRef}
+      opacity={0}
+      // filters={[Konva.Filters.Blur]}
+      // blurRadius={100}
+    />
+  );
 };
 
 const ElementsLayout: React.FC<{ windowSizes: { width: number; height: number } }> = ({ windowSizes }) => {
@@ -78,17 +99,17 @@ const ElementsLayout: React.FC<{ windowSizes: { width: number; height: number } 
     };
   };
 
+  const layerRef: RefObject<Konva.Layer> = useRef(null);
+
   useEffect(() => {
-    for (let i = 0; i < randomIntFromInterval(3, 10); i++) {
+    for (let i = 0; i < randomIntFromInterval(10, 20); i++) {
       const object = createObject();
       setObjects((prev) => [...prev, object]);
     }
   }, []);
 
-  const layerRef: RefObject<Konva.Layer> = useRef(null);
-
   return (
-    <Layer ref={layerRef}>
+    <Layer ref={layerRef} height={800}>
       {objects.map((object) => (
         <CircleCanvas {...object} key={object.id} />
       ))}
@@ -103,6 +124,7 @@ const Background: React.FC = () => {
   useEffect(() => {
     setRendered(true);
   }, []);
+
   const transitionStyles: TransitionStyles = {
     entering: { opacity: 0 },
     entered: { opacity: 1, transition: "all 3s" },

@@ -2,7 +2,6 @@
 
 body {
   overflow-x: hidden;
-
   @media screen and (max-width: breakpoints.$breakpoint-min-phone) {
     overflow-x: auto;
   }
@@ -15,10 +14,10 @@ html {
 }
 
 #__next {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-left: calc(100vw - 100%);
 }
 
 // git cell related stuff, didnt want to take styles locally

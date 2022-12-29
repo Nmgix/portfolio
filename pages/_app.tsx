@@ -33,8 +33,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name='viewport' content='width=device-width, minimum-scale=1'></meta>
       </Head>
+      <Background />
       <AppController>
-        <Background />
         <Header />
         <div className={styles.mainContent}>
           <Component {...pageProps} />

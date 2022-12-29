@@ -29,12 +29,14 @@ const AppController: React.FC<AppControllerProps> = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ alertsControl: alertsRef, popupsControl: popupsRef }}>
-      <PopupStack ref={popupsRef} />
-      <AlertStack ref={alertsRef} alerts={[]} {...alertSettings} customStyles={alertStyles} />
-      <ThemeWrapper ref={themeRef} />
-      <div className={styles.appController}>{children}</div>
-    </AppContext.Provider>
+    <div className={styles.widthWrapper}>
+      <AppContext.Provider value={{ alertsControl: alertsRef, popupsControl: popupsRef }}>
+        <PopupStack ref={popupsRef} />
+        <AlertStack ref={alertsRef} alerts={[]} {...alertSettings} customStyles={alertStyles} />
+        <ThemeWrapper ref={themeRef} />
+        <div className={styles.appController}>{children}</div>
+      </AppContext.Provider>
+    </div>
   );
 };
 

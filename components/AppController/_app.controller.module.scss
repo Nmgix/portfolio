@@ -1,8 +1,13 @@
 @use "node_modules/nmgix-components/src/breakpoints.module.scss";
 
+.widthWrapper {
+  margin-left: calc(100vw - 100%);
+}
+
 .appController {
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   width: 600px;
   min-height: calc(100vh - 100px);
