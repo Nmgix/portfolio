@@ -107,7 +107,7 @@ const ElementsLayout: React.FC<{
   }, []);
 
   return (
-    <Layer height={800}>
+    <Layer>
       {objects.map((object) => (
         <CircleCanvas {...object} key={object.id} />
       ))}

@@ -5,7 +5,6 @@ import {
   ArticleCellData,
   BioCellData,
   CoursesCellData,
-  GitCellData,
   NewsletterDataTypes,
 } from "components/CellsComponentsGroup/types";
 import { CellGroup } from "components/CellsComponentsGroup/CellGroup/CellGroup";
@@ -68,19 +67,6 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
         return Object.assign({}, meta, {
           sizes,
         } as Partial<CoursesCellData>);
-      }
-      case "git": {
-        const sizes = [{ width: 2, height: 1 }];
-
-        return Object.assign({}, meta, {
-          gitData: {
-            issuesPersentage: 0,
-            commitsPerYear: 0,
-            codeReviewPersentage: 0,
-            pullRequestsPersentage: 0,
-          },
-          sizes,
-        } as Partial<GitCellData>);
       }
       default: {
         return meta;
