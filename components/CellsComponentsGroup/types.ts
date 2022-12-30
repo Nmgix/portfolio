@@ -46,25 +46,10 @@ export interface CoursesCellData extends DefaultData {
   }[];
 }
 
-export interface GitCellData extends DefaultData {
-  type: "git";
-  borderColor: string;
-  url: string;
-  nick: string;
-  gitData: {
-    commitsPerYear: number;
-    commitsImg: string;
-    commitPersentage?: number;
-    pullRequestsPersentage?: number;
-    codeReviewPersentage?: number;
-    issuesPersentage?: number;
-  };
-}
-
 export interface BioCellData extends DefaultData {
   type: "bio";
   // пока что временно ReactNode, а не ReactNode[]
   description: string;
 }
 
-export type NewsletterDataTypes = ArticleCellData | CoursesCellData | BioCellData | GitCellData;
+export type NewsletterDataTypes = ArticleCellData | CoursesCellData | BioCellData;

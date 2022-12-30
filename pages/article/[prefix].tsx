@@ -83,7 +83,9 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
         <ul>
           {meta.useful_links.map((link) => (
             <li key={link.name}>
-              <a href={link.url}>{link.name}</a>
+              <a href={link.url} target={"_blank"} rel={"no-referrer"}>
+                {link.name}
+              </a>
             </li>
           ))}
         </ul>

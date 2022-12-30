@@ -13,6 +13,7 @@ import { v4 as uuid } from "uuid";
 import styles from "./_background.module.scss";
 import gsap from "gsap";
 import { Power3 } from "gsap";
+import { KonvaEventObject } from "konva/lib/Node";
 
 type ObjectSize = {
   width: number;
@@ -31,6 +32,12 @@ type BackgroundCircle = {
   duration: number;
   fill: string[];
   callback: () => void;
+};
+
+const backgroundTransitionStyles: TransitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1, transition: "all 3s" },
+  exited: { opacity: 0 },
 };
 
 const CircleCanvas: React.FC<BackgroundCircle> = ({ size, from, to, duration, fill, callback }) => {
@@ -55,21 +62,14 @@ const CircleCanvas: React.FC<BackgroundCircle> = ({ size, from, to, duration, fi
   }, []);
 
   return (
-    <Circle
-      width={size.width}
-      height={size.height}
-      x={from.x}
-      y={from.y}
-      fill={fill[0]}
-      ref={circleRef}
-      opacity={0}
-      // filters={[Konva.Filters.Blur]}
-      // blurRadius={100}
-    />
+    <Circle width={size.width} height={size.height} x={from.x} y={from.y} fill={fill[0]} ref={circleRef} opacity={0} />
   );
 };
 
-const ElementsLayout: React.FC<{ windowSizes: { width: number; height: number } }> = ({ windowSizes }) => {
+const ElementsLayout: React.FC<{
+  windowSizes: { width: number; height: number };
+  mouseCircleRef: RefObject<Konva.Circle>;
+}> = ({ windowSizes, mouseCircleRef }) => {
   const [objects, setObjects] = useState<BackgroundCircle[]>([]);
 
   const createObject: () => BackgroundCircle = () => {
@@ -99,8 +99,6 @@ const ElementsLayout: React.FC<{ windowSizes: { width: number; height: number } 
     };
   };
 
-  const layerRef: RefObject<Konva.Layer> = useRef(null);
-
   useEffect(() => {
     for (let i = 0; i < randomIntFromInterval(10, 20); i++) {
       const object = createObject();
@@ -109,10 +107,19 @@ const ElementsLayout: React.FC<{ windowSizes: { width: number; height: number } 
   }, []);
 
   return (
-    <Layer ref={layerRef} height={800}>
+    <Layer height={800}>
       {objects.map((object) => (
         <CircleCanvas {...object} key={object.id} />
       ))}
+      <Circle
+        width={150}
+        height={150}
+        x={windowSizes.width / 2}
+        y={400}
+        fill={getRandomColor()}
+        ref={mouseCircleRef}
+        opacity={1}
+      />
     </Layer>
   );
 };
@@ -123,15 +130,33 @@ const Background: React.FC = () => {
   const [rendered, setRendered] = useState<boolean>(false);
   useEffect(() => {
     setRendered(true);
+    mouseCircleRef.current!.cache();
   }, []);
 
-  const transitionStyles: TransitionStyles = {
-    entering: { opacity: 0 },
-    entered: { opacity: 1, transition: "all 3s" },
-    exited: { opacity: 0 },
-  };
-
   const stageRef: RefObject<Konva.Stage> = useRef(null);
+
+  const mouseCircleRef: RefObject<Konva.Circle> = useRef(null);
+  const mouseRefFadeIn = (ref: RefObject<Konva.Circle>) => {
+    const tl = gsap.timeline();
+    tl.to(ref.current, {
+      opacity: 1,
+      duration: 1,
+    });
+  };
+  const mouseRefFadeOut = (ref: RefObject<Konva.Circle>) => {
+    const tl = gsap.timeline();
+    tl.to(ref.current, {
+      opacity: 0,
+      duration: 1,
+    });
+  };
+  const mouseRefMove = (ref: RefObject<Konva.Circle>, e: KonvaEventObject<MouseEvent>) => {
+    const tl = gsap.timeline();
+    tl.to(ref.current, {
+      x: e.evt.pageX,
+      y: e.evt.pageY,
+    });
+  };
 
   return (
     <Transition in={rendered} timeout={300}>
@@ -141,8 +166,11 @@ const Background: React.FC = () => {
           height={800}
           className={styles.background}
           ref={stageRef}
-          style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
-          <ElementsLayout windowSizes={windowSizes} />
+          style={{ ...backgroundTransitionStyles[state as keyof TransitionStyles] }}
+          onMouseMove={(e) => mouseRefMove(mouseCircleRef, e)}
+          onMouseLeave={() => mouseRefFadeOut(mouseCircleRef)}
+          onMouseEnter={() => mouseRefFadeIn(mouseCircleRef)}>
+          <ElementsLayout windowSizes={windowSizes} mouseCircleRef={mouseCircleRef} />
         </Stage>
       )}
     </Transition>

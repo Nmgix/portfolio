@@ -20,32 +20,6 @@ const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
   const { width, height } = cell.sizes[0];
 
   switch (cell.type) {
-    case "git": {
-      return (
-        <div className={styles.cellTypeGithub}>
-          <a href={cell.url} target='_blank' referrerPolicy='no-referrer'>
-            <h3>Github Stats</h3>
-            <div>
-              <span>
-                <b>{cell.gitData.commitsPerYear}</b> <FormattedMessage id='article.github.commits' />
-              </span>
-              <span>
-                <b>{cell.gitData.codeReviewPersentage}%</b> <FormattedMessage id='article.github.codereviews' />
-              </span>
-            </div>
-            <ReactGitHubCalendar userName={cell.nick} responsive global_stats={false} tooltips={false} />
-            <div>
-              <span>
-                <b>{cell.gitData.issuesPersentage}%</b> <FormattedMessage id='article.github.tickets' />
-              </span>
-              <span>
-                <b>{cell.gitData.pullRequestsPersentage}%</b> <FormattedMessage id='article.github.pullrequests' />
-              </span>
-            </div>
-          </a>
-        </div>
-      );
-    }
     case "bio": {
       return (
         <div className={clsx(styles.cellTypeBio)}>
@@ -239,7 +213,7 @@ export const ViewportCell: React.FC<NewsletterDataTypes & InjectedProps> = (cell
             className={clsx(styles.cell, state)}
             style={{
               gridArea: `cell-${id}`,
-              border: cellData.type === "courses" || cellData.type === "git" ? `3px solid ${cellData.borderColor}` : "",
+              border: cellData.type === "courses" ? `3px solid ${cellData.borderColor}` : "",
               ...transitionStyles[state as keyof TransitionStyles],
             }}
             key={id}>

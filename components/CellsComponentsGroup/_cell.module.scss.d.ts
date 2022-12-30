@@ -10,7 +10,6 @@ export const cellTypeArticleMain: string;
 export const cellTypeBio: string;
 export const cellTypeCourses: string;
 export const cellTypeCoursesContent: string;
-export const cellTypeGithub: string;
 export const courseMain: string;
 export const courseStats: string;
 export const imagePlaceholder: string;

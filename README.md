@@ -8,6 +8,7 @@
     HCAPTCHA_SECRET=ВАШ_СЕКРЕТНЫЙ_КЛЮЧ
     HCAPTCHA_SITEKEY=ВАШ_КЛЮЧ_САЙТА
 
+    SMTP_HOST=SMTP-ХОСТ
     SMTP_LOGIN=ЛОГИН-ПОЧТА
     SMTP_PASS=ПАРОЛЬ
     REQUESTS_MAIL=ПОЧТА_ДЛЯ_ПОЛУЧЕНИЯ_ЗАЯВОК

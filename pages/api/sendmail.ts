@@ -23,7 +23,7 @@ export default async function handler(req: ExtendedNextApiRequest, res: NextApiR
 
       if (validToken) {
         let transport = nodemailer.createTransport({
-          host: "smtp-relay.sendinblue.com",
+          host: process.env.SMTP_HOST,
           port: 587,
           auth: {
             user: process.env.SMTP_LOGIN,

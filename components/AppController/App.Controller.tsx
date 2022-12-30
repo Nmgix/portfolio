@@ -29,7 +29,9 @@ const AppController: React.FC<AppControllerProps> = ({ children }) => {
   };
 
   return (
-    <div className={styles.widthWrapper}>
+    <div
+    // className={styles.widthWrapper}
+    >
       <AppContext.Provider value={{ alertsControl: alertsRef, popupsControl: popupsRef }}>
         <PopupStack ref={popupsRef} />
         <AlertStack ref={alertsRef} alerts={[]} {...alertSettings} customStyles={alertStyles} />
