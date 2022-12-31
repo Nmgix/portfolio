@@ -25,6 +25,7 @@ const ImagesPopup: React.FC<ImagesPopupProps> = ({ images, index }) => {
       <div className={styles.imagesPopupWrapperControls}>
         <Button
           color='background-default'
+          backgroundColor='background-alter'
           buttonBorder={false}
           onClick={() => setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))}
           size='xl'>
@@ -32,6 +33,7 @@ const ImagesPopup: React.FC<ImagesPopupProps> = ({ images, index }) => {
         </Button>
         <Button
           color='background-default'
+          backgroundColor='background-alter'
           buttonBorder={false}
           onClick={() => setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))}
           size='xl'>

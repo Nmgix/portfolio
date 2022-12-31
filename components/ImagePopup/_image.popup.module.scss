@@ -28,6 +28,11 @@
       object-fit: contain;
 
       border-radius: 10px;
+
+      @media screen and (max-width: breakpoints.$breakpoint-max-tablet) {
+        width: 100% !important;
+        object-fit: cover;
+      }
     }
   }
 
@@ -44,12 +49,10 @@
 
     @media screen and (max-width: breakpoints.$breakpoint-max-tablet) {
       width: 80vw;
-      height: 40vh;
     }
 
     @media screen and (max-width: breakpoints.$breakpoint-max-phone) {
       width: 90vw;
-      height: 30vh;
     }
 
     &Controls {
