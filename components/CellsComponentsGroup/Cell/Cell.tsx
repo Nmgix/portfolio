@@ -15,6 +15,7 @@ const ReactGitHubCalendar = dynamic(() => import("react-ts-github-calendar"), {
 import { Transition } from "react-transition-group";
 import handleViewport from "react-in-viewport";
 import { InjectedProps, TransitionStyles } from "nmgix-components/src";
+import { scaleTransition } from "types/Transitions";
 
 const NewsletterDataComponent: React.FC<NewsletterDataTypes> = (cell) => {
   const { width, height } = cell.sizes[0];
@@ -195,11 +196,6 @@ export const ViewportCell: React.FC<NewsletterDataTypes & InjectedProps> = (cell
   const { id } = cellData;
   const { inViewport, enterCount } = cellData;
 
-  const transitionStyles: TransitionStyles = {
-    entering: { opacity: 0, scale: "1.1" },
-    entered: { opacity: 1, scale: "1" },
-  };
-
   const [rendered, setRendered] = useState<boolean>(false);
   useEffect(() => {
     setRendered(true);
@@ -214,7 +210,7 @@ export const ViewportCell: React.FC<NewsletterDataTypes & InjectedProps> = (cell
             style={{
               gridArea: `cell-${id}`,
               border: cellData.type === "courses" ? `3px solid ${cellData.borderColor}` : "",
-              ...transitionStyles[state as keyof TransitionStyles],
+              ...scaleTransition[state as keyof TransitionStyles],
             }}
             key={id}>
             <NewsletterDataComponent {...cellData} />

@@ -15,6 +15,7 @@ import { ArticleCellData } from "components/CellsComponentsGroup/types";
 import { randomIntFromInterval } from "helpers/randomNumber";
 import { FormattedMessage } from "react-intl";
 import { Transition, TransitionGroup } from "react-transition-group";
+import { slideTransitionFunction } from "types/Transitions";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   const router = useRouter();
@@ -33,18 +34,12 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
   useEffect(() => {
     setRendered(true);
   }, []);
-
-  const transitionStyles: TransitionStyles = {
-    entering: { opacity: 0, transform: "translateY(-30px)" },
-    entered: { opacity: 1, transform: "translateY(0px)" },
-    exiting: { opacity: 0, transform: "translateY(30px)" },
-    exited: { opacity: 0 },
-  };
+  const slideTransition = slideTransitionFunction(30);
 
   const BackButton: React.FC = () => (
     <Transition in={rendered} timeout={1000}>
       {(state) => (
-        <div style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+        <div style={{ ...slideTransition[state as keyof TransitionStyles] }}>
           <Button buttonBorder={false} onClick={goToMain} size='m' classNames={[styles.returnButton]}>
             <Icon icon='arrow-left' width={18} height={15} />
             <span>
@@ -123,7 +118,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
       {(state) => (
         <header
           style={{
-            ...transitionStyles[state as keyof TransitionStyles],
+            ...slideTransition[state as keyof TransitionStyles],
           }}>
           <div
             className={styles.title}
@@ -159,7 +154,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
           <div
             className={styles.linkedImages}
             style={{
-              ...transitionStyles[state as keyof TransitionStyles],
+              ...slideTransition[state as keyof TransitionStyles],
             }}>
             {meta.linkedImages.slice(0, 4).map((image) => (
               <Image
@@ -197,7 +192,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
           <main
             className={styles.main}
             style={{
-              ...transitionStyles[state as keyof TransitionStyles],
+              ...slideTransition[state as keyof TransitionStyles],
             }}>
             <Markdown>{content}</Markdown>
           </main>
@@ -232,7 +227,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
           <div
             className={styles.qrCode}
             style={{
-              ...transitionStyles[state as keyof TransitionStyles],
+              ...slideTransition[state as keyof TransitionStyles],
             }}>
             <div>
               <h3>

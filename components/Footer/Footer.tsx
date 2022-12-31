@@ -10,6 +10,7 @@ import { createFooterEmailPopup } from "./FooterPopup/FooterPopup";
 import { PopupCloseStatues } from "nmgix-components/src/components/PopupComponentsGroup/Popup/Popup";
 import handleViewport from "react-in-viewport";
 import { Transition } from "react-transition-group";
+import { slideTransitionFunction } from "types/Transitions";
 
 const ViewportFooter: React.FC<InjectedProps> = (props) => {
   const { inViewport } = props;
@@ -201,17 +202,12 @@ const ViewportFooter: React.FC<InjectedProps> = (props) => {
   useEffect(() => {
     setRendered(true);
   }, [inViewport]);
-
-  const transitionStyles: TransitionStyles = {
-    entering: { transform: "translateY(200px)", opacity: 0 },
-    entered: { transform: "translateY(0px)", opacity: 1 },
-    exited: { opacity: 0 },
-  };
+  const slideTransition = slideTransitionFunction(200);
 
   return (
     <Transition timeout={500} in={rendered}>
       {(state) => (
-        <footer className={styles.footer} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+        <footer className={styles.footer} style={{ ...slideTransition[state as keyof TransitionStyles] }}>
           {formWrapper}
           <FooterSubtitleInformationSection />
         </footer>

@@ -3,10 +3,9 @@ import { getRandomColor } from "helpers/randomColor";
 import Konva from "konva";
 import { TransitionStyles } from "nmgix-components/src";
 import useWindowDimentions from "nmgix-components/src/hooks/useWindowDimentions";
-import useDocumentDimentions from "nmgix-components/src/hooks/useDocumentDimentions";
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import { Circle, Stage } from "react-konva";
-import { Layer, Rect } from "react-konva";
+import { Layer } from "react-konva";
 import { Transition } from "react-transition-group";
 import { v4 as uuid } from "uuid";
 
@@ -14,6 +13,7 @@ import styles from "./_background.module.scss";
 import gsap from "gsap";
 import { Power3 } from "gsap";
 import { KonvaEventObject } from "konva/lib/Node";
+import { opacityTransition } from "types/Transitions";
 
 type ObjectSize = {
   width: number;
@@ -32,12 +32,6 @@ type BackgroundCircle = {
   duration: number;
   fill: string[];
   callback: () => void;
-};
-
-const backgroundTransitionStyles: TransitionStyles = {
-  entering: { opacity: 0 },
-  entered: { opacity: 1, transition: "all 3s" },
-  exited: { opacity: 0 },
 };
 
 const CircleCanvas: React.FC<BackgroundCircle> = ({ size, from, to, duration, fill, callback }) => {
@@ -65,6 +59,8 @@ const CircleCanvas: React.FC<BackgroundCircle> = ({ size, from, to, duration, fi
     <Circle width={size.width} height={size.height} x={from.x} y={from.y} fill={fill[0]} ref={circleRef} opacity={0} />
   );
 };
+
+// opacity
 
 const ElementsLayout: React.FC<{
   windowSizes: { width: number; height: number };
@@ -166,7 +162,7 @@ const Background: React.FC = () => {
           height={800}
           className={styles.background}
           ref={stageRef}
-          style={{ ...backgroundTransitionStyles[state as keyof TransitionStyles] }}
+          style={{ ...opacityTransition[state as keyof TransitionStyles] }}
           onMouseMove={(e) => mouseRefMove(mouseCircleRef, e)}
           onMouseLeave={() => mouseRefFadeOut(mouseCircleRef)}
           onMouseEnter={() => mouseRefFadeIn(mouseCircleRef)}>
@@ -178,9 +174,3 @@ const Background: React.FC = () => {
 };
 
 export default Background;
-
-// canvas blur()
-// A CSS <length>. Applies a Gaussian blur to the drawing. It defines the value of the standard deviation to the Gaussian function, i.e.,
-// how many pixels on the screen blend into each other; thus, a larger value will create more blur. A value of 0 leaves the input unchanged.
-
-// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter

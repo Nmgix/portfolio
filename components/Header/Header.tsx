@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import { FormattedMessage } from "react-intl";
 import { Transition } from "react-transition-group";
+import { opacityTransition } from "types/Transitions";
 import styles from "./Header.module.scss";
 
 const ActiveLangButton: React.FC<{ children: React.ReactNode; locale: "ru" | "en"; router: NextRouter }> = ({
@@ -17,7 +18,12 @@ const ActiveLangButton: React.FC<{ children: React.ReactNode; locale: "ru" | "en
   return router.locale === locale ? (
     <div style={{ opacity: 0.5 }}>{children}</div>
   ) : (
-    <Button buttonBorder={false} onClick={() => router.push(router.asPath, undefined, { locale })} size='s'>
+    <Button
+      buttonBorder={false}
+      onClick={() => {
+        router.push(router.asPath, undefined, { locale });
+      }}
+      size='s'>
       {children}
     </Button>
   );
@@ -31,17 +37,10 @@ const Header: React.FC = () => {
     setRendered(true);
   }, []);
 
-  const transitionStyles: TransitionStyles = {
-    entering: { opacity: 0 },
-    entered: { opacity: 1 },
-    exiting: { opacity: 0 },
-    exited: { opacity: 0 },
-  };
-
   return (
     <Transition timeout={100} in={rendered}>
       {(state) => (
-        <header className={styles.header} style={{ ...transitionStyles[state as keyof TransitionStyles] }}>
+        <header className={styles.header} style={{ ...opacityTransition[state as keyof TransitionStyles] }}>
           <Head>
             <title>NMGIX</title>
           </Head>
