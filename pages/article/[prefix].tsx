@@ -16,8 +16,12 @@ import { randomIntFromInterval } from "helpers/randomNumber";
 import { FormattedMessage } from "react-intl";
 import { Transition, TransitionGroup } from "react-transition-group";
 import { slideTransitionFunction } from "types/Transitions";
+import { useAppContext } from "components/AppController/App.Controller";
+import { createImagesPopup } from "components/ImagePopup/ImagePopup";
 
 const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
+  const context = useAppContext();
+
   const router = useRouter();
   const goToMain = () => {
     return router.push("/", undefined, { shallow: true });
@@ -156,21 +160,35 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
             style={{
               ...slideTransition[state as keyof TransitionStyles],
             }}>
-            {meta.linkedImages.slice(0, 4).map((image) => (
-              <Image
-                src={image}
-                alt='linked image to article'
-                fill
-                sizes='(max-width: 768px) 400,
+            {meta.linkedImages.slice(0, 4).map((image, i) => (
+              <Button
+                buttonBorder={false}
+                onClick={() => {
+                  const { children } = createImagesPopup({ images: meta.linkedImages, index: i });
+                  context.popupsControl.current!.createPopup(children);
+                }}
+                size='s'>
+                <Image
+                  src={image}
+                  alt='linked image to article'
+                  fill
+                  sizes='(max-width: 768px) 400,
             500'
-                priority={true}
-                key={image}
-                draggable={false}
-              />
+                  priority={true}
+                  key={image}
+                  draggable={false}
+                />
+              </Button>
             ))}
             {meta.linkedImages.length > 4 ? (
               <span>
-                <Button buttonBorder={false} onClick={() => {}} size='m'>
+                <Button
+                  buttonBorder={false}
+                  onClick={() => {
+                    const { children } = createImagesPopup({ images: meta.linkedImages, index: 4 });
+                    context.popupsControl.current!.createPopup(children);
+                  }}
+                  size='m'>
                   +{meta.linkedImages.length - 4}
                 </Button>
               </span>

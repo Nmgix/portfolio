@@ -129,14 +129,19 @@
     width: 100%;
     margin-bottom: 20px;
 
-    img {
-      position: initial !important;
-      border-radius: 10px;
-      object-fit: cover;
+    & > button {
+      position: relative !important;
+      padding: 0 !important;
+
+      img {
+        position: initial !important;
+        object-fit: cover;
+        border-radius: 10px;
+      }
 
       &:nth-child(1) {
         width: 100% !important;
-        height: auto !important;
+        height: 250px !important;
       }
 
       &:nth-child(2),
