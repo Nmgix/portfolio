@@ -12,7 +12,7 @@ const nextConfig = withTM({
   publicRuntimeConfig: {
     HCAPTCHA_SITEKEY: process.env.HCAPTCHA_SITEKEY,
   },
-  assetPrefix: isProd ? "/portfolio/" : "",
+  assetPrefix: isProd ? "/portfolio/" : "/",
   basePath: isProd ? "/portfolio" : "",
 });
 
