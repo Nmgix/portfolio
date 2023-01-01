@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev -H %npm_config_ip%",
     "ngrok": "ngrok http 3000",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
+    "export": "next export",
     "start": "next start",
     "styles": "\"npx typed-scss-modules components --watch\" \"npx typed-scss-modules styles --watch\""
   },
