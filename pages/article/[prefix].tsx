@@ -318,10 +318,6 @@ export const getStaticProps: GetStaticProps = ({ params, locale }) => {
       notFound: true,
     };
   } else {
-    console.log(process.env.HOST);
-    console.log(process.env["HOST"]);
-    console.log(process.env.SMTP_HOST);
-    console.log(process.env.REQUESTS_MAIL);
     const pageProps: ArticlePageData = {
       meta: md.meta as ArticleCellData,
       content: md.content,
