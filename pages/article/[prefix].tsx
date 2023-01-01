@@ -318,6 +318,7 @@ export const getStaticProps: GetStaticProps = ({ params, locale }) => {
       notFound: true,
     };
   } else {
+    console.log(process.env.HOST);
     const pageProps: ArticlePageData = {
       meta: md.meta as ArticleCellData,
       content: md.content,

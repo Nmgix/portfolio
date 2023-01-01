@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm link nmgix-components && next dev -H %npm_config_ip%",
+    "dev": "next dev -H %npm_config_ip%",
     "ngrok": "ngrok http 3000",
     "build": "next build",
     "start": "next start",
