@@ -20,13 +20,7 @@ jobs:
           cache: "npm"
       - name: Create env file
         run: |
-          echo "${{ env.HOST }}" > .env
-          echo "${{ env.HCAPTCHA_SECRET }}" > .env
-          echo "${{ env.HCAPTCHA_SITEKEY }}" > .env
-          echo "${{ env.SMTP_HOST }}" > .env
-          echo "${{ env.SMTP_LOGIN }}" > .env
-          echo "${{ env.SMTP_PASS }}" > .env
-          echo "${{ env.REQUESTS_MAIL }}" > .env
+          echo "${{ env.ENV_FILE }}" > .env
       - name: Build
         run: |
           npm i --legacy-peer-deps
