@@ -20,7 +20,8 @@ jobs:
           cache: "npm"
       - name: Create env file
         run: |
-          echo "${{ env.ENV_FILE }}" > .env
+          echo "${{ secrets.DEPLOY_ENVS }}" > .env
+          cat .env
       - name: Build
         run: |
           npm i --legacy-peer-deps
