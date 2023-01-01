@@ -13,14 +13,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Create env file
-        run: |
-          echo "${{ secrets.ENV_FILE }}" > .env.production
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
           cache: "npm"
+      - name: Create env file
+        run: |
+          echo "${{ env.ENV_FILE }}" > .env
       - name: Build
         run: |
           npm i --legacy-peer-deps
