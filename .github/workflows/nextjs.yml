@@ -10,7 +10,10 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
-
+    defaults:
+       run:
+         working-directory: ./portfolio/
+    
     steps:
       - uses: actions/checkout@v3
 
