@@ -2,17 +2,16 @@
     id: 0
     title: My own components
     subtitle: The story of half a year long
-    authors_favorites: true
+    authorsFavorites: true
     ttr: 5
     date: 15.03.22
     type: article
     backgroundColor: ["#000"]
     color: ["#FFFFFF"]
-    linkedImages: ["/images/articles/nmgix-components/components-preview1.png", "/images/articles/nmgix-components/components-preview2.png", "/images/articles/nmgix-components/figma.png", "/images/articles/nmgix-components/git-preview.png",
-    "/images/articles/nmgix-components/components-preview1.png", "/images/articles/nmgix-components/components-preview2.png", "/images/articles/nmgix-components/figma.png", "/images/articles/nmgix-components/git-preview.png"
+    linkedImages: ["/images/articles/nmgix-components/components-preview1.png", "/images/articles/nmgix-components/components-preview2.png", "/images/articles/nmgix-components/figma.png", "/images/articles/nmgix-components/git-preview.png"
     ]
-    tech_stack: ['Typescript', 'React']
-    useful_links: [
+    techStack: ['Typescript', 'React']
+    usefulLinks: [
         {
             name: 'Github', url: 'https://github.com/nmgix'
         }

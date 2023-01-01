@@ -74,13 +74,13 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
     );
 
   const MetaLinks: React.FC = () =>
-    meta.useful_links ? (
+    meta.usefulLinks ? (
       <>
         <span className={styles.statHeader}>
           <FormattedMessage id='article.description.links' />
         </span>
         <ul>
-          {meta.useful_links.map((link) => (
+          {meta.usefulLinks.map((link) => (
             <li key={link.name}>
               <a href={link.url} target={"_blank"} rel={"no-referrer"}>
                 {link.name}
@@ -94,7 +94,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
     );
 
   const MetaSubcontent: React.FC = () =>
-    meta.techStack || meta.useful_links ? (
+    meta.techStack || meta.usefulLinks ? (
       <div className={styles.articleStatsSecondary}>
         <div className={styles.stat}>
           <MetaTechstack />
@@ -108,7 +108,7 @@ const Article: NextPage<ArticlePageData> = ({ meta, content, host }) => {
     );
 
   const MetaAuthorsFavourite: React.FC = () =>
-    meta.authors_favorites ? (
+    meta.authorsFavorites ? (
       <span className={styles.favourite}>
         <Icon icon='star' width={13} height={13} />
         <FormattedMessage id='article.subtitle.favourite' />
@@ -304,7 +304,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
         locale: file.locale,
       };
     }),
-    // fallback: true,
     fallback: false,
   };
 };

@@ -14,7 +14,7 @@ export interface DefaultData {
 // может быть будет генератор ссылок по типу информации, хз
 export interface ArticleCellData extends DefaultData {
   type: "article";
-  authors_favorites: boolean;
+  authorsFavorites: boolean;
   ttr: number; // to read, in minutes
   date: string;
   url: string;
@@ -23,7 +23,7 @@ export interface ArticleCellData extends DefaultData {
   image?: string;
   linkedImages: string[];
   techStack?: string[];
-  useful_links?: { name: string; url: string }[];
+  usefulLinks?: { name: string; url: string }[];
   // залить фон цветом или градиентом
   backgroundColor?: string[];
   color?: string;
