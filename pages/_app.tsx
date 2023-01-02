@@ -32,6 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <IntlProvider locale={locale!} messages={messages[locale as keyof Messages]}>
       <Head>
         <meta name='viewport' content='width=device-width, minimum-scale=1'></meta>
+        <meta property='og:title' content={locale === "en" ? "NMGIX's portfolio" : "Портфолио NMGIX"} />
+        <meta property='og:type' content='article' />
+        <meta property='og:image' content={"/images/github-preview.png"} />
       </Head>
       <Background />
       <AppController>
