@@ -1,4 +1,4 @@
-<img src="git.content/github-preview.png"/>
+<img src=".git.content/github-preview.png"/>
 
 # Персональный сайт
 
